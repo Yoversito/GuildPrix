@@ -9,11 +9,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
 </head>
+
 <body class="bg-grid bg-page bg-ranking">
   <nav class="navbar navbar-expand-lg glassy sticky-top border-bottom border-primary-subtle mt-2">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <img src="img/perfilguild.gif" alt="Guild Logo"
+        <img src="img/nitro.gif" alt="Guild Logo"
              style="width:32px;height:32px;border-radius:8px;object-fit:cover">
         <span class="fw-bold">𝟕𝟕𝟕</span>
       </a>
@@ -32,67 +33,133 @@
   </nav>
 
   <main class="container py-5">
-    <!-- HERO / Título -->
-    <div class="glassy rounded-4 p-4 mb-4 d-flex align-items-center justify-content-between">
-      <div>
-        <h1 class="h3 fw-extrabold m-0 neon"><i class="bi bi-trophy"></i> Ranking — Desempeño Individual</h1>
+
+    <!-- ===================== -->
+    <!-- 2026 (PRIMERO)        -->
+    <!-- ===================== -->
+    <section class="ranking-year" data-year="2026">
+      <div class="glassy rounded-4 p-4 mb-4 d-flex align-items-center justify-content-between">
+        <div>
+          <h1 class="h3 fw-extrabold m-0 neon">
+            <i class="bi bi-trophy"></i> Ranking — Desempeño Individual — 2026
+          </h1>
+        </div>
+        <span class="badge text-bg-warning text-dark">Raиkک™</span>
       </div>
-      <span class="badge text-bg-warning text-dark">𝟕𝟕𝟕</span>
-    </div>
 
-    <!-- PODIO TOP 3 -->
-    <section class="ranking-podium mb-4">
-      <div class="row g-3 align-items-end">
-        <!-- 2do -->
-        <div class="col-12 col-md-4 order-2 order-md-1">
-          <div class="podium-card glassy">
-            <span class="ribbon silver">2°</span>
-            <div class="medal medal-silver" aria-label="2do lugar" data-bs-toggle="tooltip" title="Subió 1 puesto">
-              <i class="bi bi-trophy"></i>
+      <section class="ranking-podium mb-4">
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-4 order-2 order-md-1">
+            <div class="podium-card glassy">
+              <span class="ribbon silver">2°</span>
+              <div class="medal medal-silver" aria-label="2do lugar" data-bs-toggle="tooltip" title="Subió 1 puesto">
+                <i class="bi bi-trophy"></i>
+              </div>
+              <div class="podium-body">
+                <div class="pos">2</div>
+                <div class="name"></div>
+              </div>
             </div>
-            <div class="podium-body">
-              <div class="pos">2</div>
-              <div class="name"></div>
+          </div>
+
+          <div class="col-12 col-md-4 order-1 order-md-2">
+            <div class="podium-card glassy featured">
+              <span class="ribbon gold">1°</span>
+              <div class="medal medal-gold" aria-label="1er lugar" data-bs-toggle="tooltip" title="Se mantiene líder">
+                <i class="bi bi-trophy-fill"></i>
+              </div>
+              <div class="podium-body">
+                <div class="pos">1</div>
+                <div class="name"></div>
+                <div class="crown"><i class="bi bi-stars"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4 order-3">
+            <div class="podium-card glassy">
+              <span class="ribbon bronze">3°</span>
+              <div class="medal medal-bronze" aria-label="3er lugar" data-bs-toggle="tooltip" title="Bajó 1 puesto">
+                <i class="bi bi-trophy"></i>
+              </div>
+              <div class="podium-body">
+                <div class="pos">3</div>
+                <div class="name"></div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- 1ro -->
-        <div class="col-12 col-md-4 order-1 order-md-2">
-          <div class="podium-card glassy featured">
-            <span class="ribbon gold">1°</span>
-            <div class="medal medal-gold" aria-label="1er lugar" data-bs-toggle="tooltip" title="Se mantiene líder">
-              <i class="bi bi-trophy-fill"></i>
-            </div>
-            <div class="podium-body">
-              <div class="pos">1</div>
-              <div class="name"></div>
-              <div class="crown"><i class="bi bi-stars"></i></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3ro -->
-        <div class="col-12 col-md-4 order-3">
-          <div class="podium-card glassy">
-            <span class="ribbon bronze">3°</span>
-            <div class="medal medal-bronze" aria-label="3er lugar" data-bs-toggle="tooltip" title="Bajó 1 puesto">
-              <i class="bi bi-trophy"></i>
-            </div>
-            <div class="podium-body">
-              <div class="pos">3</div>
-              <div class="name"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <section class="glassy rounded-4 p-3 p-md-4 mb-5">
+        <h2 class="h5 mb-3"><i class="bi bi-award"></i> Puestos 4 al 6</h2>
+        <ul class="rank-list m-0 p-0"></ul>
+      </section>
     </section>
 
-    <!-- PUESTOS 4 EN ADELANTE (el JS los llena) -->
-    <section class="glassy rounded-4 p-3 p-md-4">
-      <h2 class="h5 mb-3"><i class="bi bi-award"></i> Puestos 4 al 6</h2>
-      <ul class="rank-list m-0 p-0"></ul>
+    <!-- ===================== -->
+    <!-- 2025 (REGISTRO)       -->
+    <!-- ===================== -->
+    <section class="ranking-year" data-year="2025">
+      <div class="glassy rounded-4 p-4 mb-4 d-flex align-items-center justify-content-between">
+        <div>
+          <h1 class="h3 fw-extrabold m-0 neon">
+            <i class="bi bi-trophy"></i> Ranking — Desempeño Individual — 2025
+          </h1>
+        </div>
+        <span class="badge text-bg-warning text-dark">𝟕𝟕𝟕</span>
+      </div>
+
+      <section class="ranking-podium mb-4">
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-md-4 order-2 order-md-1">
+            <div class="podium-card glassy">
+              <span class="ribbon silver">2°</span>
+              <div class="medal medal-silver" aria-label="2do lugar" data-bs-toggle="tooltip" title="Subió 1 puesto">
+                <i class="bi bi-trophy"></i>
+              </div>
+              <div class="podium-body">
+                <div class="pos">2</div>
+                <div class="name"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4 order-1 order-md-2">
+            <div class="podium-card glassy featured">
+              <span class="ribbon gold">1°</span>
+              <div class="medal medal-gold" aria-label="1er lugar" data-bs-toggle="tooltip" title="Se mantiene líder">
+                <i class="bi bi-trophy-fill"></i>
+              </div>
+              <div class="podium-body">
+                <div class="pos">1</div>
+                <div class="name"></div>
+                <div class="crown"><i class="bi bi-stars"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4 order-3">
+            <div class="podium-card glassy">
+              <span class="ribbon bronze">3°</span>
+              <div class="medal medal-bronze" aria-label="3er lugar" data-bs-toggle="tooltip" title="Bajó 1 puesto">
+                <i class="bi bi-trophy"></i>
+              </div>
+              <div class="podium-body">
+                <div class="pos">3</div>
+                <div class="name"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="glassy rounded-4 p-3 p-md-4">
+        <h2 class="h5 mb-3"><i class="bi bi-award"></i> Puestos 4 al 6</h2>
+        <ul class="rank-list m-0 p-0"></ul>
+      </section>
     </section>
+
   </main>
 
   <footer class="footer" id="contacto">
