@@ -1,338 +1,414 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DB</title>
+    <link rel="icon" href="img/favicon.ico" sizes="any" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <script defer src="./js/prix.js"></script>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DB</title>
-  <link rel="icon" href="img/favicon.ico" sizes="any">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
-</head>
-<script defer src="./js/prix.js"></script>
-
-<body class="bg-grid bg-page bg-prix">
-  <nav class="navbar navbar-expand-lg glassy sticky-top border-bottom border-primary-subtle mt-2">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-        <img src="img/perfilguild2026.gif" alt="Guild Logo"
-          style="width:32px;height:32px;border-radius:8px;object-fit:cover">
-        <span class="fw-bold">Raиkک™</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>Inicio</a></li>
-          <li class="nav-item"><a class="nav-link active" href="prix.html"><i class="bi bi-trophy me-1"></i>Prix</a></li>
-          <li class="nav-item"><a class="nav-link" href="ranking.html"><i class="bi bi-bar-chart me-1"></i>Ranking</a></li>
-          <li class="nav-item"><a class="nav-link" href="live.html"><i class="bi bi-play-circle me-1"></i>Videos</a></li>
-        </ul>
+  <body class="bg-grid bg-page bg-prix">
+    <nav
+      class="navbar navbar-expand-lg glassy sticky-top border-bottom border-primary-subtle mt-2"
+    >
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center gap-2"
+          href="index.html"
+        >
+          <img
+            src="img/perfilguild2026.gif"
+            alt="Guild Logo"
+            style="
+              width: 32px;
+              height: 32px;
+              border-radius: 8px;
+              object-fit: cover;
+            "
+          />
+          <span class="fw-bold">Raиkک™</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMain"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html"
+                ><i class="bi bi-house-door me-1"></i>Inicio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="prix.html"
+                ><i class="bi bi-trophy me-1"></i>Prix</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ranking.html"
+                ><i class="bi bi-bar-chart me-1"></i>Ranking</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="live.html"
+                ><i class="bi bi-play-circle me-1"></i>Videos</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  <main class="container py-4">
+    <main class="container py-4">
+      <!-- ===================== -->
+      <!-- 2026 (PRIMERO)        -->
+      <!-- ===================== -->
+      <div class="glassy p-3 p-md-4 rounded-4 mb-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2026</h1>
+          <span class="badge text-bg-warning text-dark">Raиkک™</span>
+        </div>
 
-    <!-- ===================== -->
-    <!-- 2026 (PRIMERO)        -->
-    <!-- ===================== -->
-    <div class="glassy p-3 p-md-4 rounded-4 mb-4">
-      <div class="d-flex align-items-center justify-content-between mb-3">
-        <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2026</h1>
-        <span class="badge text-bg-warning text-dark">Raиkک™</span>
+        <div class="table-responsive">
+          <table class="table sheet align-middle">
+            <thead>
+              <tr class="sheet-head">
+                <th>TEAM</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- PISADOR  -->
+              <tr class="sheet-subhead">
+                <th>PISADOR</th>
+                <th>Frank</th>
+                <th>Carlos</th>
+                <th>Chino</th>
+                <th>Benja</th>
+                <th>Yoel</th>
+                <th>Isaac</th>
+              </tr>
+
+              <!-- CUENTAS  -->
+              <tr>
+                <th>CUENTAS</th>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>Explosive</div>
+                    <div>Locurita</div>
+                    <div>l=APOCALIPSIS=l</div>
+                    <div>—</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>Jv</div>
+                    <div>JhanV</div>
+                    <div>~Jotadeabe~*-*</div>
+                    <div>almu</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>LEON DORADO</div>
+                    <div>—</div>
+                    <div>—</div>
+                    <div>—</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>—</div>
+                    <div>—</div>
+                    <div>—</div>
+                    <div>—</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>—</div>
+                    <div>—</div>
+                    <div>—</div>
+                    <div>—</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>—</div>
+                    <div>—</div>
+                    <div>—</div>
+                    <div>—</div>
+                  </div>
+                </td>
+              </tr>
+
+              <!---- PRIMERA HORA ---->
+              <tr class="sheet-block">
+                <th rowspan="2">1RA HORA</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+              </tr>
+              <tr class="sheet-block">
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+              </tr>
+
+              <!---- SEGUNDA HORA ---->
+              <tr class="sheet-block">
+                <th rowspan="2">2DA HORA</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+              </tr>
+              <tr class="sheet-block">
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+                <th class="lose">0</th>
+              </tr>
+
+              <!-- SubTotal -->
+              <tr class="sheet-total">
+                <th>SubTotal</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+
+              <!-- TOTAL  -->
+              <tr class="sheet-total strong">
+                <th></th>
+                <th class="text-end" colspan="5">TOTAL</th>
+                <th class="total-num"></th>
+              </tr>
+
+              <!-- PUNTOS  -->
+              <tr class="sheet-total strong">
+                <th></th>
+                <th class="text-end" colspan="5">PUNTOS</th>
+                <th
+                  style="
+                    font-size: 1.25rem;
+                    font-weight: 800;
+                    text-align: center;
+                    color: #fff;
+                    text-shadow: 0 1px 1px rgba(255, 0, 0, 0.25);
+                  "
+                >
+                  0
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div class="table-responsive">
-        <table class="table sheet align-middle">
-          <thead>
-            <tr class="sheet-head">
-              <th>TEAM</th>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
-              <th>5</th>
-              <th>6</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- PISADOR  -->
-            <tr class="sheet-subhead">
-              <th>PISADOR</th>
-              <th>Frank</th>
-              <th>Carlos</th>
-              <th>Chino</th>
-              <th>Benja</th>
-              <th>Yoel</th>
-              <th>Isaac</th>
-            </tr>
+      <!-- ===================== -->
+      <!-- 2025 (REGISTRO)       -->
+      <!-- ===================== -->
+      <div class="glassy p-3 p-md-4 rounded-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2025</h1>
+          <span class="badge text-bg-warning text-dark">𝟕𝟕𝟕</span>
+        </div>
 
-            <!-- CUENTAS  -->
-            <tr>
-              <th>CUENTAS</th>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>Explosive</div><div>Locurita</div><div>l=APOCALIPSIS=l</div><div>—</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>Darcleyto</div><div>MrMore</div><div>Arima</div><div>Blesd</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>LEON DORADO</div><div>—</div><div>—</div><div>—</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>—</div><div>—</div><div>—</div><div>—</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>—</div><div>—</div><div>—</div><div>—</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>—</div><div>—</div><div>—</div><div>—</div>
-                </div>
-              </td>
-            </tr>
+        <div class="table-responsive">
+          <table class="table sheet align-middle">
+            <thead>
+              <tr class="sheet-head">
+                <th>TEAM</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- PISADOR  -->
+              <tr class="sheet-subhead">
+                <th>PISADOR</th>
+                <th>Chino</th>
+                <th>Jean PC</th>
+                <th>Nicson</th>
+                <th>Carlos</th>
+                <th>Miguel</th>
+                <th>Frank</th>
+              </tr>
 
-            <!---- PRIMERA HORA ---->
-            <tr class="sheet-block">
-              <th rowspan="2">1RA HORA</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-            </tr>
-            <tr class="sheet-block">
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-            </tr>
+              <!-- CUENTAS  -->
+              <tr>
+                <th>CUENTAS</th>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>LEON DORADO</div>
+                    <div>zzAadukeritaA</div>
+                    <div>eDv4rd0</div>
+                    <div>Psicopata*</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>OG~KING</div>
+                    <div>OG~LION</div>
+                    <div>LEITO**</div>
+                    <div>#Mr Matasquita~</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>XxCeSarstOnexX</div>
+                    <div>Agnostico*</div>
+                    <div>NESTOR R</div>
+                    <div>Mr Jimmy</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>Jossef Paz</div>
+                    <div>~Jotadeabe~*-*</div>
+                    <div>~Nachito</div>
+                    <div>barbie</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>Viviana Canales</div>
+                    <div>Jesus Hoppers</div>
+                    <div>ReinaDelSvr</div>
+                    <div>CHAMPIONS</div>
+                  </div>
+                </td>
+                <td class="p-0">
+                  <div class="sheet-cuentas">
+                    <div>l=APOCALIPSIS=l</div>
+                    <div>~Carlos18~</div>
+                    <div>Yoversito</div>
+                    <div>Kimbherly</div>
+                  </div>
+                </td>
+              </tr>
 
-            <!---- SEGUNDA HORA ---->
-            <tr class="sheet-block">
-              <th rowspan="2">2DA HORA</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-            </tr>
-            <tr class="sheet-block">
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-              <th class="lose">0</th>
-            </tr>
+              <!---- PRIMERA HORA ---->
+              <tr class="sheet-block">
+                <th rowspan="2">1RA HORA</th>
+                <th class="win">9</th>
+                <th class="win">7</th>
+                <th class="win">2</th>
+                <th class="win">8</th>
+                <th class="win">10</th>
+                <th class="win">10</th>
+              </tr>
+              <tr class="sheet-block">
+                <th class="lose">8</th>
+                <th class="lose">10</th>
+                <th class="lose">4</th>
+                <th class="lose">2</th>
+                <th class="lose">9</th>
+                <th class="lose">5</th>
+              </tr>
 
-            <!-- SubTotal -->
-            <tr class="sheet-total">
-              <th>SubTotal</th>
-              <th></th><th></th><th></th><th></th><th></th><th></th>
-            </tr>
+              <!---- SEGUNDA HORA ---->
+              <tr class="sheet-block">
+                <th rowspan="2">2DA HORA</th>
+                <th class="win">7</th>
+                <th class="win">0</th>
+                <th class="win">0</th>
+                <th class="win">7</th>
+                <th class="win">0</th>
+                <th class="win">10</th>
+              </tr>
+              <tr class="sheet-block">
+                <th class="lose">3</th>
+                <th class="lose">0</th>
+                <th class="lose">1</th>
+                <th class="lose">3</th>
+                <th class="lose">0</th>
+                <th class="lose">2</th>
+              </tr>
 
-            <!-- TOTAL  -->
-            <tr class="sheet-total strong">
-              <th></th>
-              <th class="text-end" colspan="5">TOTAL</th>
-              <th class="total-num"></th>
-            </tr>
+              <!-- SubTotal -->
+              <tr class="sheet-total">
+                <th>SubTotal</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
 
-            <!-- PUNTOS  -->
-            <tr class="sheet-total strong">
-              <th></th>
-              <th class="text-end" colspan="5">PUNTOS</th>
-              <th style="font-size:1.25rem; font-weight:800; text-align:center; color:#fff; text-shadow:0 1px 1px rgba(255,0,0,.25);">
-                0
-              </th>
-            </tr>
-          </tbody>
-        </table>
+              <!-- TOTAL  -->
+              <tr class="sheet-total strong">
+                <th></th>
+                <th class="text-end" colspan="5">TOTAL</th>
+                <th class="total-num"></th>
+              </tr>
+
+              <!-- PUNTOS  -->
+              <tr class="sheet-total strong">
+                <th></th>
+                <th class="text-end" colspan="5">PUNTOS</th>
+                <th
+                  style="
+                    font-size: 1.25rem;
+                    font-weight: 800;
+                    text-align: center;
+                    color: #fff;
+                    text-shadow: 0 1px 1px rgba(255, 0, 0, 0.25);
+                  "
+                >
+                  23
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </main>
 
-    <!-- ===================== -->
-    <!-- 2025 (REGISTRO)       -->
-    <!-- ===================== -->
-    <div class="glassy p-3 p-md-4 rounded-4">
-      <div class="d-flex align-items-center justify-content-between mb-3">
-        <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2025</h1>
-        <span class="badge text-bg-warning text-dark">𝟕𝟕𝟕</span>
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__copy m-0">© 2025 — By Yover Castillo</p>
       </div>
+    </footer>
 
-      <div class="table-responsive">
-        <table class="table sheet align-middle">
-          <thead>
-            <tr class="sheet-head">
-              <th>TEAM</th>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
-              <th>5</th>
-              <th>6</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- PISADOR  -->
-            <tr class="sheet-subhead">
-              <th>PISADOR</th>
-              <th>Chino</th>
-              <th>Jean PC</th>
-              <th>Nicson</th>
-              <th>Carlos</th>
-              <th>Miguel</th>
-              <th>Frank</th>
-            </tr>
-
-            <!-- CUENTAS  -->
-            <tr>
-              <th>CUENTAS</th>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>LEON DORADO</div>
-                  <div>zzAadukeritaA</div>
-                  <div>eDv4rd0</div>
-                  <div>Psicopata*</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>OG~KING</div>
-                  <div>OG~LION</div>
-                  <div>LEITO**</div>
-                  <div>#Mr Matasquita~</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>XxCeSarstOnexX</div>
-                  <div>Agnostico*</div>
-                  <div>NESTOR R</div>
-                  <div>Mr Jimmy</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>Jossef Paz</div>
-                  <div>~Jotadeabe~*-*</div>
-                  <div>~Nachito</div>
-                  <div>barbie</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>Viviana Canales</div>
-                  <div>Jesus Hoppers</div>
-                  <div>ReinaDelSvr</div>
-                  <div>CHAMPIONS</div>
-                </div>
-              </td>
-              <td class="p-0">
-                <div class="sheet-cuentas">
-                  <div>l=APOCALIPSIS=l</div>
-                  <div>~Carlos18~</div>
-                  <div>Yoversito</div>
-                  <div>Kimbherly</div>
-                </div>
-              </td>
-            </tr>
-
-            <!---- PRIMERA HORA ---->
-            <tr class="sheet-block">
-              <th rowspan="2">1RA HORA</th>
-              <th class="win">9</th>
-              <th class="win">7</th>
-              <th class="win">2</th>
-              <th class="win">8</th>
-              <th class="win">10</th>
-              <th class="win">10</th>
-            </tr>
-            <tr class="sheet-block">
-              <th class="lose">8</th>
-              <th class="lose">10</th>
-              <th class="lose">4</th>
-              <th class="lose">2</th>
-              <th class="lose">9</th>
-              <th class="lose">5</th>
-            </tr>
-
-            <!---- SEGUNDA HORA ---->
-            <tr class="sheet-block">
-              <th rowspan="2">2DA HORA</th>
-              <th class="win">7</th>
-              <th class="win">0</th>
-              <th class="win">0</th>
-              <th class="win">7</th>
-              <th class="win">0</th>
-              <th class="win">10</th>
-            </tr>
-            <tr class="sheet-block">
-              <th class="lose">3</th>
-              <th class="lose">0</th>
-              <th class="lose">1</th>
-              <th class="lose">3</th>
-              <th class="lose">0</th>
-              <th class="lose">2</th>
-            </tr>
-
-            <!-- SubTotal -->
-            <tr class="sheet-total">
-              <th>SubTotal</th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-
-            <!-- TOTAL  -->
-            <tr class="sheet-total strong">
-              <th></th>
-              <th class="text-end" colspan="5">TOTAL</th>
-              <th class="total-num"></th>
-            </tr>
-
-            <!-- PUNTOS  -->
-            <tr class="sheet-total strong">
-              <th></th>
-              <th class="text-end" colspan="5">PUNTOS</th>
-              <th style="font-size:1.25rem; font-weight:800; text-align:center; color:#fff; text-shadow:0 1px 1px rgba(255,0,0,.25);">
-                23
-              </th>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p class="footer__copy m-0">© 2025 — By Yover Castillo</p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
