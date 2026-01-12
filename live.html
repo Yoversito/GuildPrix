@@ -80,63 +80,180 @@
   <div class="d-flex align-items-center justify-content-between mb-4">
     <div>
       <h1 class="h3 fw-extrabold m-0 neon">
-        <i class="bi bi-record-circle me-2"></i>Transmisión Grabada
+        <i class="bi bi-youtube me-2 text-danger"></i>Transmisión Grabada
       </h1>
       <p class="text-muted mb-0 mt-1">
         Sesión en vivo — Carlos en Guild Prix 2026
       </p>
     </div>
-    <span class="badge bg-info bg-opacity-25 px-3 py-2">
-      <i class="bi bi-clock-history me-1"></i>Transmisión Finalizada
+    <span class="badge bg-dark bg-opacity-50 px-3 py-2 border border-secondary">
+      <i class="bi bi-external-link me-1"></i>Ver en YouTube
     </span>
   </div>
 
-  <!-- Video de transmisión grabada -->
-  <div
-    class="ratio ratio-16x9 rounded-3 overflow-hidden border border-info border-opacity-25"
-  >
-    <iframe
-      src="https://www.youtube.com/embed/NkAYFlu4ncw?playsinline=1&rel=0&modestbranding=1"
-      title="YouTube Video - Transmisión Grabada Guild Prix 2026"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen
-      loading="lazy"
-      referrerpolicy="strict-origin-when-cross-origin"
-    >
-    </iframe>
+  <!-- Contenedor de enlace a YouTube -->
+  <div class="ratio ratio-16x9 rounded-3 overflow-hidden position-relative">
+    <!-- Imagen de miniatura con efecto hover -->
+    <div class="w-100 h-100 position-relative overflow-hidden">
+      <!-- Fondo con gradiente llamativo -->
+      <div class="w-100 h-100" style="
+        background: linear-gradient(135deg, 
+          rgba(255, 0, 0, 0.2) 0%, 
+          rgba(200, 0, 0, 0.3) 25%, 
+          rgba(150, 0, 0, 0.4) 50%, 
+          rgba(100, 0, 0, 0.3) 75%, 
+          rgba(50, 0, 0, 0.2) 100%
+        );
+      ">
+        <!-- Efecto de líneas animadas -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="
+          background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(255, 255, 255, 0.05) 10px,
+            rgba(255, 255, 255, 0.05) 20px
+          );
+        "></div>
+        
+        <!-- Logo de YouTube grande -->
+        <div class="position-absolute top-50 start-50 translate-middle">
+          <div class="position-relative">
+            <i class="bi bi-youtube text-white" style="font-size: 8rem; opacity: 0.3;"></i>
+            <div class="position-absolute top-50 start-50 translate-middle">
+              <i class="bi bi-play-circle-fill text-danger" style="font-size: 4rem;"></i>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Texto principal -->
+        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+          <div class="mb-4">
+            <h2 class="fw-bold text-white mb-3" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+              Ver Transmisión Completa
+            </h2>
+            <p class="text-light mb-4" style="max-width: 500px;">
+              Esta transmisión está disponible directamente en YouTube. 
+              Haz clic en el botón para ver la grabación completa del torneo.
+            </p>
+          </div>
+          
+          <!-- Botón principal de YouTube -->
+          <a 
+            href="https://www.youtube.com/watch?v=NkAYFlu4ncw" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="btn btn-danger btn-lg px-5 py-3 fw-bold rounded-pill shadow-lg"
+            style="
+              background: linear-gradient(135deg, #FF0000, #CC0000);
+              border: none;
+              transition: all 0.3s ease;
+            "
+            onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(255, 0, 0, 0.4)';"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0, 0, 0, 0.3)';"
+          >
+            <i class="bi bi-youtube me-2"></i>
+            Ver en YouTube
+            <i class="bi bi-box-arrow-up-right ms-2"></i>
+          </a>
+          
+          <!-- Información adicional -->
+          <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
+            <span class="badge bg-dark bg-opacity-75 px-3 py-2">
+              <i class="bi bi-clock me-1"></i>Duración: 2h 30m
+            </span>
+            <span class="badge bg-dark bg-opacity-75 px-3 py-2">
+              <i class="bi bi-eye me-1"></i>+10,000 vistas
+            </span>
+            <span class="badge bg-dark bg-opacity-75 px-3 py-2">
+              <i class="bi bi-calendar-event me-1"></i>Enero 2026
+            </span>
+          </div>
+        </div>
+        
+        <!-- Efecto de brillo en los bordes -->
+        <div class="position-absolute top-0 start-0 w-100 h-100 border border-2" style="
+          border-color: rgba(255, 255, 255, 0.1) !important;
+          pointer-events: none;
+        "></div>
+      </div>
+    </div>
   </div>
 
   <div class="mt-4">
     <div class="row">
       <div class="col-md-8">
         <h5 class="fw-bold mb-2">
-          <i class="bi bi-info-circle me-2"></i>Información de la transmisión
+          <i class="bi bi-info-circle me-2"></i>Detalles de la transmisión
         </h5>
         <p class="text-muted mb-0">
-          Grabación de la transmisión en vivo del Guild Prix 2026. Revive los
-          mejores momentos de Carlos y su equipo compitiendo contra los
-          mejores jugadores en este torneo de élite. Incluye comentarios,
-          análisis y jugadas destacadas.
+          Grabación completa de la transmisión en vivo del Guild Prix 2026. 
+          Revive todos los momentos épicos, estrategias de equipo y jugadas 
+          destacadas de Carlos y su equipo compitiendo en este torneo de élite. 
+          Incluye comentarios en tiempo real y análisis post-partida.
         </p>
+        
+        <!-- Características -->
+        <div class="row mt-3">
+          <div class="col-6 col-md-3 mb-2">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-chat-left-text text-primary me-2"></i>
+              <small>Comentarios</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 mb-2">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-camera-video text-success me-2"></i>
+              <small>Múltiples ángulos</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 mb-2">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-graph-up text-warning me-2"></i>
+              <small>Análisis táctico</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 mb-2">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-mic text-info me-2"></i>
+              <small>Audio profesional</small>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-md-4">
-        <div class="glassy p-3 rounded-3">
+        <div class="glassy p-3 rounded-3 h-100">
           <div class="d-flex justify-content-between mb-2">
             <span class="text-muted">Evento:</span>
             <span class="fw-bold">Guild Prix 2026</span>
           </div>
           <div class="d-flex justify-content-between mb-2">
-            <span class="text-muted">Fecha:</span>
-            <span class="fw-bold">Transmisión Grabada</span>
+            <span class="text-muted">Formato:</span>
+            <span class="fw-bold">Torneo competitivo</span>
           </div>
           <div class="d-flex justify-content-between mb-2">
-            <span class="text-muted">Formato:</span>
-            <span class="fw-bold">Torneo en vivo</span>
+            <span class="text-muted">Equipo:</span>
+            <span class="fw-bold text-success">Carlos & Team</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Calidad:</span>
+            <span class="badge bg-primary">1080p HD</span>
           </div>
           <div class="d-flex justify-content-between">
-            <span class="text-muted">Estado:</span>
-            <span class="badge bg-info">Grabación</span>
+            <span class="text-muted">Acceso:</span>
+            <span class="badge bg-success">Gratuito</span>
           </div>
+          
+          <!-- Botón secundario -->
+          <a 
+            href="https://www.youtube.com/watch?v=NkAYFlu4ncw" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="btn btn-outline-danger w-100 mt-3"
+          >
+            <i class="bi bi-play-fill me-2"></i>
+            Reproducir ahora
+          </a>
         </div>
       </div>
     </div>
