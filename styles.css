@@ -794,4 +794,59 @@ body {
 
 .bg-ranking .ranking-podium {
   margin-bottom: 2rem;
+}
+
+/* ========== TABLA 2024 (2 COLUMNAS) ========== */
+.sheet-2cols {
+  table-layout: fixed;
+}
+.sheet-2cols :is(th, td):first-child {
+  width: 25% !important;
+  min-width: 100px;
+  max-width: 150px;
+  vertical-align: middle;
+  text-align: center !important;
+}
+.sheet-2cols :is(th, td):nth-child(2) {
+  width: 37.5% !important;
+  min-width: 120px;
+  text-align: center;
+}
+.sheet-2cols :is(th, td):nth-child(3) {
+  width: 37.5% !important;
+  min-width: 120px;
+  text-align: center;
+}
+.sheet-2cols .sheet-total.strong th.text-end {
+  width: 30% !important;
+  text-align: right;
+  padding-right: 1rem;
+}
+.sheet-2cols .sheet-total.strong th:last-child {
+  width: 45% !important;
+  text-align: center;
+}
+.sheet-2cols .sheet-cuentas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.25rem;
+}
+.sheet-2cols .sheet-cuentas > div {
+  text-align: center;
+  width: 100%;
+  padding: 0.25rem 0;
+}
+
+.bg-prix .sheet-2cols :is(th, td):first-child {
+  width: 25% !important;
+}
+
+.bg-prix .sheet-2cols > :not(caption) > * > * {
+  border-right: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.bg-prix .sheet-2cols > :not(caption) > * > *:last-child {
+  border-right: 0;
 }/*# sourceMappingURL=styles.css.map */
