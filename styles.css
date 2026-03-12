@@ -651,7 +651,7 @@ body {
 }
 
 /* Ajuste primera columna */
-.bg-prix .table.sheet :is(th, td):first-child {
+.bg-prix .table.sheet tr > :is(th, td):first-child:not(.win):not(.lose) {
   width: 10.5rem;
   vertical-align: middle;
   text-align: center !important;
@@ -957,7 +957,7 @@ body {
   background: rgba(255, 255, 255, 0.06);
 }
 
-.bg-prix .table.sheet :is(th, td):first-child {
+.bg-prix .table.sheet tr > :is(th, td):first-child:not(.win):not(.lose) {
   position: sticky;
   left: 0;
   z-index: 2;
@@ -1059,7 +1059,7 @@ body {
   .btn-live-featured {
     border-radius: 0.95rem;
   }
-  .bg-prix .table.sheet :is(th, td):first-child {
+  .bg-prix .table.sheet tr > :is(th, td):first-child:not(.win):not(.lose) {
     width: 8.9rem;
   }
 }
