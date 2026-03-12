@@ -2,10 +2,17 @@
 
 (function () {
   'use strict';
+
+  const DEBUG = false;
+  const log = {
+    info: (...args) => { if (DEBUG) console.info(...args); },
+    warn: (...args) => console.warn(...args),
+    debug: (...args) => { if (DEBUG) console.log(...args); }
+  };
   
   const yearsSections = Array.from(document.querySelectorAll(".ranking-year[data-year]"));
   if (!yearsSections.length) {
-    console.warn("[ranking.js] No se encontraron secciones de ranking.");
+    log.warn("[ranking.js] No se encontraron secciones de ranking.");
     return;
   }
 
@@ -46,12 +53,43 @@
     });
   };
 
+  const normalizeName = (name) => String(name || '').trim().toLowerCase();
+
+  const getPreviousRanking = (year) => {
+    const prevYear = String(Number(year) - 1);
+    if (!/^\d{4}$/.test(prevYear)) return [];
+    const { data } = loadDataForYear(prevYear);
+    return calculateRanking(data);
+  };
+
+  const applyDelta = (currentRanking, previousRanking) => {
+    if (!currentRanking.length) return currentRanking;
+    const previousPositions = new Map(
+      previousRanking.map((player, idx) => [normalizeName(player.name), idx + 1])
+    );
+
+    return currentRanking.map((player, idx) => {
+      const currentPosition = idx + 1;
+      const prevPosition = previousPositions.get(normalizeName(player.name));
+      const delta = Number.isFinite(prevPosition) ? (prevPosition - currentPosition) : 0;
+      return { ...player, delta };
+    });
+  };
+
+  const resetSectionUI = (section) => {
+    section.querySelectorAll('.player-stats').forEach((el) => el.remove());
+    section.querySelectorAll('.alert.alert-info').forEach((el) => el.remove());
+  };
+
   const fillOneSection = (section, year) => {
+    resetSectionUI(section);
     const { data, key } = loadDataForYear(year);
-    const sorted = calculateRanking(data);
+    const sortedRaw = calculateRanking(data);
+    const previousRanking = getPreviousRanking(year);
+    const sorted = applyDelta(sortedRaw, previousRanking);
     
     if (!sorted.length) {
-      console.warn(`[ranking.js] (${year}) Sin datos disponibles.`);
+      log.warn(`[ranking.js] (${year}) Sin datos disponibles.`);
       showNoDataMessage(section);
       return;
     }
@@ -121,7 +159,7 @@
     // Actualizar tooltips
     initRankingTooltips();
     
-    console.info(`[ranking.js] (${year}) Ranking generado para ${top.length} jugadores.`);
+    log.info(`[ranking.js] (${year}) Ranking generado para ${top.length} jugadores. Fuente: ${key}`);
   };
 
   const createRankListItem = (player, rankNum, pct) => {
@@ -178,6 +216,8 @@
     `;
     
     const cardBody = card.querySelector('.podium-body') || card;
+    const existingStats = cardBody.querySelector('.player-stats');
+    if (existingStats) existingStats.remove();
     cardBody.appendChild(statsDiv);
   };
 
@@ -195,9 +235,13 @@
   };
 
   const initRankingTooltips = () => {
+    if (!window.bootstrap || !window.bootstrap.Tooltip) return;
+
     // Reinicializar tooltips de Bootstrap
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltips.forEach(el => {
+      const existing = bootstrap.Tooltip.getInstance(el);
+      if (existing) existing.dispose();
       new bootstrap.Tooltip(el, {
         boundary: document.body,
         trigger: 'hover focus'
@@ -207,7 +251,7 @@
 
   const showPlayerDetails = (player) => {
     // Modal de detalles del jugador (puedes implementarlo completo si quieres)
-    console.log('Detalles del jugador:', player);
+    log.debug('Detalles del jugador:', player);
     
     const detail = `
       <strong>${player.name}</strong><br>
@@ -366,40 +410,6 @@
     const year = section.getAttribute("data-year");
     fillOneSection(section, year);
   });
-
-  // Agregar funcionalidad de actualización
-  const updateButton = document.createElement('button');
-  updateButton.className = 'btn btn-sm btn-outline-secondary position-fixed bottom-3 start-3';
-  updateButton.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Actualizar';
-  updateButton.style.zIndex = '1000';
-  
-  updateButton.addEventListener('click', () => {
-    updateButton.classList.add('rotating');
-    yearsSections.forEach((section) => {
-      const year = section.getAttribute("data-year");
-      fillOneSection(section, year);
-    });
-    
-    setTimeout(() => {
-      updateButton.classList.remove('rotating');
-    }, 1000);
-  });
-  
-  document.body.appendChild(updateButton);
-  
-  // Estilo para botón giratorio
-  const updateStyle = document.createElement('style');
-  updateStyle.textContent = `
-    .rotating {
-      animation: rotate 1s linear;
-    }
-    
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-  `;
-  document.head.appendChild(updateStyle);
 
   // Exportar para uso global
   window.dragonbound = window.dragonbound || {};

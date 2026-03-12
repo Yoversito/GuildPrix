@@ -84,9 +84,9 @@ body {
   margin-top: 0.5rem;
 }
 .navbar .guild-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   -o-object-fit: cover;
      object-fit: cover;
   border: 2px solid rgba(124, 58, 237, 0.3);
@@ -217,8 +217,7 @@ body {
   border-radius: 50px;
   font-size: 0.85rem;
   font-weight: 600;
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .chip.bg-primary.bg-opacity-25 {
@@ -317,6 +316,19 @@ body {
   background: rgba(124, 58, 237, 0.2);
   border-color: rgb(186.1488372093, 151.4604651163, 245.5395348837);
   transform: translateY(-2px);
+}
+
+.btn-live-featured {
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(255, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 500px;
+}
+.btn-live-featured:hover, .btn-live-featured:focus-visible {
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.35);
 }
 
 /* ========== RANKING PAGE ESPECÍFICO ========== */
@@ -427,6 +439,7 @@ body {
   padding: 0;
 }
 .bg-ranking .rank-list .rank-row {
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -847,4 +860,338 @@ body {
 
 .bg-ranking .ranking-podium {
   margin-bottom: 2rem;
+}
+
+/* ========== IUX POLISH LAYER ========== */
+:root {
+  --page-max: 1180px;
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --shadow-soft: 0 14px 36px rgba(0, 0, 0, 0.24);
+  --shadow-strong: 0 22px 48px rgba(0, 0, 0, 0.34);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  width: min(100% - 2rem, var(--page-max));
+}
+
+.glassy {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.glassy:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar {
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+.navbar .navbar-collapse {
+  border-radius: var(--radius-sm);
+}
+
+.guild-cover {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: var(--shadow-soft);
+}
+
+.stats-grid .stat-item {
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.btn {
+  border-radius: 0.85rem;
+  letter-spacing: 0.2px;
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible,
+.accordion-button:focus-visible,
+.list-group-item a:focus-visible {
+  outline: 2px solid rgba(6, 182, 212, 0.75);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.2);
+}
+
+.bg-ranking .ranking-podium .podium-card {
+  border-radius: 1.3rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+.bg-ranking .rank-list .rank-row {
+  border-radius: 1rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.table-responsive {
+  border-radius: var(--radius-md);
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.45) rgba(255, 255, 255, 0.08);
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.8), rgba(6, 182, 212, 0.8));
+  border-radius: 999px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.bg-prix .table.sheet :is(th, td):first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.accordion-item.glassy {
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+}
+
+.accordion-item.glassy .accordion-button {
+  border-radius: var(--radius-sm);
+}
+
+.accordion-item.glassy .list-group-item {
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.footer {
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 992px) and (max-width: 1280px) {
+  .container {
+    width: min(100% - 2.5rem, 1100px);
+  }
+  .display-4 {
+    font-size: clamp(2.2rem, 3.8vw, 3rem);
+  }
+}
+@media (max-width: 991px) {
+  .navbar {
+    margin-top: 0.25rem;
+  }
+  .navbar .navbar-collapse {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(10, 12, 28, 0.84);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .navbar .nav-link {
+    padding: 0.7rem 0.9rem;
+    margin: 0.15rem 0;
+  }
+  .navbar .nav-link.active::after {
+    display: none;
+  }
+  .glassy {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  }
+  .hero-card,
+  .ranking-podium .podium-card,
+  .rank-list .rank-row {
+    transform: none !important;
+  }
+}
+@media (max-width: 768px) {
+  main.container {
+    padding-top: 1.35rem !important;
+  }
+  .display-4 {
+    font-size: clamp(1.9rem, 7.5vw, 2.45rem);
+    line-height: 1.15;
+  }
+  .h3,
+  h3 {
+    font-size: clamp(1.2rem, 4.2vw, 1.45rem);
+  }
+  .btn {
+    min-height: 46px;
+  }
+  .stats-grid {
+    gap: 0.75rem;
+  }
+  .stats-grid .stat-item .stat-value {
+    font-size: 1.7rem;
+  }
+  .bg-prix .table.sheet {
+    font-size: 0.82rem;
+  }
+  .sheet-cuentas > div {
+    padding: 0.2rem 0.1rem;
+  }
+  .bg-ranking .rank-list .rank-row {
+    padding: 0.75rem;
+  }
+}
+@media (max-width: 576px) {
+  .container {
+    width: min(100% - 1rem, var(--page-max));
+  }
+  .glassy {
+    border-radius: var(--radius-md);
+  }
+  .btn-live-featured {
+    border-radius: 0.95rem;
+  }
+  .bg-prix .table.sheet :is(th, td):first-child {
+    width: 8.9rem;
+  }
+}
+@media (hover: none) {
+  .hero-card:hover,
+  .rank-row:hover,
+  .podium-card:hover,
+  .btn:hover {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ========== GLOBAL SKELETON SCREEN ========== */
+.app-loading body {
+  overflow: hidden;
+}
+
+.app-skeleton {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: linear-gradient(180deg, #0a0f1e 0%, #0b1224 100%);
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: 1rem;
+  opacity: 1;
+  transition: opacity 0.28s ease;
+}
+
+.app-skeleton.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app-skeleton__top,
+.app-skeleton__hero,
+.app-skeleton__card,
+.app-skeleton__line {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.app-skeleton__top::after,
+.app-skeleton__hero::after,
+.app-skeleton__card::after,
+.app-skeleton__line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  animation: skeleton-shimmer 1.2s infinite;
+}
+
+.app-skeleton__top {
+  height: 60px;
+}
+
+.app-skeleton__container {
+  width: min(100%, 1160px);
+  margin: 0 auto;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.app-skeleton__hero {
+  height: 180px;
+}
+
+.app-skeleton__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.app-skeleton__card {
+  height: 130px;
+}
+
+.app-skeleton__list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.app-skeleton__line {
+  height: 16px;
+}
+
+.app-skeleton__line--short {
+  width: 62%;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+@media (max-width: 900px) {
+  .app-skeleton__hero {
+    height: 150px;
+  }
+  .app-skeleton__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 576px) {
+  .app-skeleton {
+    padding: 0.75rem;
+  }
+  .app-skeleton__top {
+    height: 52px;
+  }
+  .app-skeleton__hero {
+    height: 120px;
+  }
+  .app-skeleton__grid {
+    grid-template-columns: 1fr;
+  }
+  .app-skeleton__card {
+    height: 95px;
+  }
 }/*# sourceMappingURL=styles.css.map */

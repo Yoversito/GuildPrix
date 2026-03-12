@@ -2,6 +2,13 @@
 
 (function () {
   'use strict';
+
+  const DEBUG = false;
+  const log = {
+    info: (...args) => { if (DEBUG) console.info(...args); },
+    warn: (...args) => console.warn(...args),
+    debug: (...args) => { if (DEBUG) console.log(...args); }
+  };
   
   const num = (s) => {
     const n = parseFloat(String(s).replace(/[^\d.-]/g, ""));
@@ -37,7 +44,7 @@
     const idxSub = findRowIndex("SUBTOTAL");
 
     if (idxPisador < 0 || idx1ra < 0 || idx2da < 0 || idxSub < 0) {
-      console.warn(`[prix.js] (${year}) Faltan filas esperadas.`);
+      log.warn(`[prix.js] (${year}) Faltan filas esperadas.`);
       return { year, ok: false };
     }
 
@@ -107,7 +114,7 @@
       if (puntosCell) {
         // Solo agregamos clase para estilos, NO cambiamos el valor
         puntosCell.classList.add('puntos-highlight');
-        console.log(`[prix.js] (${year}) Puntos manuales: ${puntosCell.textContent}`);
+        log.debug(`[prix.js] (${year}) Puntos manuales: ${puntosCell.textContent}`);
       }
     }
 
@@ -126,15 +133,15 @@
     localStorage.setItem(key, JSON.stringify(payload));
     computedYears.push(year);
 
-    console.info(`[prix.js] (${year}) Cálculos completados (sin puntos).`, payload);
-
-    // Agregar estilos para animaciones
-    addAnimationStyles();
+    log.info(`[prix.js] (${year}) Calculos completados (sin puntos).`, payload);
     
     return { year, ok: true, key, payload };
   };
 
   const results = tables.map(computeOneTable);
+
+  // Agregar estilos una sola vez
+  addAnimationStyles();
 
   // Compatibilidad con versión anterior
   const numericYears = results
@@ -147,14 +154,16 @@
     const latestKey = `prixResults_${latest}`;
     const latestPayload = JSON.parse(localStorage.getItem(latestKey) || "[]");
     localStorage.setItem("prixResults", JSON.stringify(latestPayload));
-    console.info(`[prix.js] Datos guardados en localStorage.prixResults -> ${latestKey}`);
+    log.info(`[prix.js] Datos guardados en localStorage.prixResults -> ${latestKey}`);
   }
 
   // Inicializar eventos interactivos
   initTableInteractions();
 
   function addAnimationStyles() {
+    if (document.getElementById('prix-animation-styles')) return;
     const style = document.createElement('style');
+    style.id = 'prix-animation-styles';
     style.textContent = `
       .updated-value {
         transition: all 0.3s ease;
@@ -213,9 +222,10 @@
       cell.addEventListener('click', function() {
         const value = this.textContent;
         const isWin = this.classList.contains('win');
+        const table = this.closest('table');
         const team = this.closest('tr').querySelector('th:first-child')?.textContent || '';
         const column = this.cellIndex;
-        const header = document.querySelector(`.sheet-head th:nth-child(${column + 1})`)?.textContent || '';
+        const header = table?.querySelector(`.sheet-head th:nth-child(${column + 1})`)?.textContent || '';
         
         showMatchDetail({
           team,
@@ -253,7 +263,7 @@
   }
 
   function showMatchDetail(detail) {
-    console.log('Detalle de partida:', detail);
+    log.debug('Detalle de partida:', detail);
     
     const notification = document.createElement('div');
     notification.className = 'match-notification';
