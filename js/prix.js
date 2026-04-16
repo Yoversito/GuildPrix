@@ -1,4 +1,4 @@
-// prix.js - MODIFICADO para puntos manuales
+// AEA GILAZO
 
 (function () {
   'use strict';
@@ -82,7 +82,6 @@
           cell.textContent = String(sub[i]);
           cell.classList.add('updated-value');
           
-          // Agregar animación
           setTimeout(() => {
             cell.classList.add('highlight');
             setTimeout(() => cell.classList.remove('highlight'), 1000);
@@ -97,22 +96,16 @@
       totalCell.textContent = String(totalGeneral);
       totalCell.classList.add('updated-value', 'total-highlight');
       
-      // Animación para total
       setTimeout(() => {
         totalCell.classList.add('pulse');
         setTimeout(() => totalCell.classList.remove('pulse'), 1500);
       }, 500);
     }
 
-    // ============================================
-    // PUNTOS - SE MANTIENE EL VALOR MANUAL DEL HTML
-    // ============================================
-    // No calculamos puntos automáticamente, respetamos el valor en HTML
     const puntosRow = table.querySelectorAll("tr")[idxSub + 2];
     if (puntosRow) {
       const puntosCell = puntosRow.querySelector("th:last-child, td:last-child");
       if (puntosCell) {
-        // Solo agregamos clase para estilos, NO cambiamos el valor
         puntosCell.classList.add('puntos-highlight');
         log.debug(`[prix.js] (${year}) Puntos manuales: ${puntosCell.textContent}`);
       }
@@ -140,10 +133,8 @@
 
   const results = tables.map(computeOneTable);
 
-  // Agregar estilos una sola vez
   addAnimationStyles();
 
-  // Compatibilidad con versión anterior
   const numericYears = results
     .map(r => r.year)
     .filter(y => /^\d{4}$/.test(String(y)))
@@ -157,7 +148,6 @@
     log.info(`[prix.js] Datos guardados en localStorage.prixResults -> ${latestKey}`);
   }
 
-  // Inicializar eventos interactivos
   initTableInteractions();
 
   function addAnimationStyles() {
@@ -204,7 +194,6 @@
   }
 
   function initTableInteractions() {
-    // Resaltar filas al pasar el mouse
     document.querySelectorAll('.sheet-block th, .sheet-block td').forEach(cell => {
       cell.addEventListener('mouseenter', function() {
         const row = this.closest('tr');
@@ -217,7 +206,6 @@
       });
     });
 
-    // Click en celdas para ver detalles
     document.querySelectorAll('.win, .lose').forEach(cell => {
       cell.addEventListener('click', function() {
         const value = this.textContent;
@@ -237,7 +225,6 @@
       });
     });
 
-    // Agregar estilos para interacciones
     const interactionStyles = document.createElement('style');
     interactionStyles.textContent = `
       .row-highlight {
@@ -311,7 +298,6 @@
     }
   }
 
-  // Exportar funciones para uso global
   window.dragonbound = window.dragonbound || {};
   window.dragonbound.prix = {
     recalculate: function() {

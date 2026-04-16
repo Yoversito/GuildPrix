@@ -1,4 +1,4 @@
-// main.js - UX/performance core
+// QUE FUE MIRON? :v
 
 (function () {
   'use strict';

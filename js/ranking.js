@@ -1,4 +1,4 @@
-// ranking.js - Mejorado con animaciones y más datos
+// QUE FUE MEN?
 
 (function () {
   'use strict';
@@ -30,7 +30,6 @@
   const calculateRanking = (data) => {
     if (!data.length) return [];
     
-    // Calcular estadísticas adicionales
     const enriched = data.map(player => {
       const totalMatches = (player.wins1 || 0) + (player.loses1 || 0) + 
                           (player.wins2 || 0) + (player.loses2 || 0);
@@ -96,13 +95,12 @@
 
     const top = sorted.slice(0, Math.min(sorted.length, 6));
 
-    // Llenar podio
     const podiumCards = section.querySelectorAll('.podium-card');
     if (podiumCards.length >= 3) {
       const podiumData = [
-        { card: podiumCards[1], player: top[0], medal: 'gold', position: 1 },   // 1er lugar
-        { card: podiumCards[0], player: top[1], medal: 'silver', position: 2 }, // 2do lugar
-        { card: podiumCards[2], player: top[2], medal: 'bronze', position: 3 }  // 3er lugar
+        { card: podiumCards[1], player: top[0], medal: 'gold', position: 1 },   
+        { card: podiumCards[0], player: top[1], medal: 'silver', position: 2 }, 
+        { card: podiumCards[2], player: top[2], medal: 'bronze', position: 3 }  
       ];
 
       podiumData.forEach(({ card, player, medal, position }, index) => {
@@ -119,24 +117,20 @@
           
           if (posEl) posEl.textContent = position;
           if (medalEl) {
-            // Actualizar tooltip del medal
             const tooltipText = position === 1 ? 'Líder del ranking' :
                               position === 2 ? 'Segundo lugar' : 'Tercer lugar';
             medalEl.setAttribute('data-bs-original-title', tooltipText);
-            
-            // Agregar animación de entrada
+          
             setTimeout(() => {
               medalEl.style.animation = `medalAppear 0.5s ease ${index * 0.2}s both`;
             }, 100);
           }
           
-          // Agregar badge de estadísticas
           addPlayerStats(card, player);
         }
       });
     }
 
-    // Llenar lista del 4to al 6to lugar
     const list = section.querySelector("ul.rank-list");
     if (list) {
       list.innerHTML = "";
@@ -149,14 +143,12 @@
         const li = createRankListItem(player, rankNum, pct);
         list.appendChild(li);
         
-        // Animación de entrada escalonada
         setTimeout(() => {
           li.style.animation = `slideInRight 0.5s ease ${index * 0.1}s both`;
         }, 300);
       });
     }
 
-    // Actualizar tooltips
     initRankingTooltips();
     
     log.info(`[ranking.js] (${year}) Ranking generado para ${top.length} jugadores. Fuente: ${key}`);
@@ -167,7 +159,6 @@
     li.className = "rank-row";
     li.style.setProperty("--pct", String(pct));
     
-    // Determinar etiqueta basada en rendimiento
     const tag = getPerformanceTag(rankNum, player.winRate);
     const delta = getDeltaIcon(player.delta);
     
@@ -186,7 +177,6 @@
       </span>
     `;
     
-    // Agregar evento click para ver detalles
     li.addEventListener('click', () => showPlayerDetails(player));
     
     return li;
@@ -237,7 +227,6 @@
   const initRankingTooltips = () => {
     if (!window.bootstrap || !window.bootstrap.Tooltip) return;
 
-    // Reinicializar tooltips de Bootstrap
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltips.forEach(el => {
       const existing = bootstrap.Tooltip.getInstance(el);
@@ -250,7 +239,6 @@
   };
 
   const showPlayerDetails = (player) => {
-    // Modal de detalles del jugador (puedes implementarlo completo si quieres)
     log.debug('Detalles del jugador:', player);
     
     const detail = `
@@ -266,7 +254,6 @@
       • Derrotas 2da hora: ${player.loses2 || 0}
     `;
     
-    // Notificación simple
     const notification = document.createElement('div');
     notification.className = 'player-detail-notification';
     notification.innerHTML = detail;
@@ -287,7 +274,6 @@
       animation: modalAppear 0.3s ease;
     `;
     
-    // Overlay
     const overlay = document.createElement('div');
     overlay.className = 'modal-overlay';
     overlay.style.cssText = `
@@ -301,7 +287,6 @@
       animation: fadeIn 0.3s ease;
     `;
     
-    // Cerrar al hacer click
     overlay.addEventListener('click', () => {
       notification.style.animation = 'modalDisappear 0.3s ease';
       overlay.style.animation = 'fadeOut 0.3s ease';
@@ -314,7 +299,6 @@
     document.body.appendChild(overlay);
     document.body.appendChild(notification);
     
-    // Agregar estilos de animación si no existen
     addModalStyles();
   };
 
@@ -405,13 +389,11 @@
     }
   };
 
-  // Inicializar ranking para todas las secciones
   yearsSections.forEach((section) => {
     const year = section.getAttribute("data-year");
     fillOneSection(section, year);
   });
 
-  // Exportar para uso global
   window.dragonbound = window.dragonbound || {};
   window.dragonbound.ranking = {
     refresh: function() {
