@@ -20,8 +20,11 @@
 
   const computedYears = [];
 
-  const getYearForTable = (table) => {
-    const scope = table.closest(".glassy") || document;
+  const getTableSeasonKey = (table) => {
+    const scope = table.closest("[data-season-key]") || table.closest(".glassy") || document;
+    const explicitKey = scope?.getAttribute?.("data-season-key") || table.getAttribute("data-season-key");
+    if (explicitKey) return explicitKey.trim();
+
     const h1 = scope.querySelector("h1");
     const txt = (h1?.textContent || "").trim();
     const m = txt.match(/20\d{2}/);
@@ -29,7 +32,7 @@
   };
 
   const computeOneTable = (table) => {
-    const year = getYearForTable(table) || "unknown";
+    const year = getTableSeasonKey(table) || "unknown";
 
     const rows = Array.from(table.querySelectorAll("tr")).map((tr) =>
       Array.from(tr.querySelectorAll("th,td")).map((td) => (td.textContent || "").trim())
