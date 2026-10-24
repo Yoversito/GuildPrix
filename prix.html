@@ -3,13 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "dark" || savedTheme === "light") {
-        document.documentElement.setAttribute("data-bs-theme", savedTheme);
-      }
-      document.documentElement.classList.add("app-loading");
-    </script>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <title>GuildPrix Resultados 2024-2026 | DragonBound Bunge</title>
     <meta
       name="description"
@@ -31,43 +25,6 @@
       rel="stylesheet"
     />
     <link href="styles.css" rel="stylesheet" />
-    <script type="speculationrules">
-      {
-        "prerender": [
-          {
-            "where": {
-              "and": [
-                {
-                  "or": [
-                    { "href_matches": "index.html" },
-                    { "href_matches": "./index.html" },
-                    { "href_matches": "/index.html" },
-                    { "href_matches": "live.html" },
-                    { "href_matches": "./live.html" },
-                    { "href_matches": "/live.html" },
-                    { "href_matches": "prix.html" },
-                    { "href_matches": "./prix.html" },
-                    { "href_matches": "/prix.html" },
-                    { "href_matches": "ranking.html" },
-                    { "href_matches": "./ranking.html" },
-                    { "href_matches": "/ranking.html" }
-                  ]
-                },
-                { "not": { "href_matches": "#*" } },
-                { "not": { "href_matches": "http://*" } },
-                { "not": { "href_matches": "https://*" } },
-                { "not": { "href_matches": "//*" } },
-                { "not": { "href_matches": "/logout" } },
-                { "not": { "selector_matches": "[rel~=nofollow]" } },
-                { "not": { "selector_matches": "[data-no-prerender]" } },
-                { "not": { "selector_matches": "a[download]" } }
-              ]
-            },
-            "eagerness": "moderate"
-          }
-        ]
-      }
-    </script>
   </head>
 
   <body class="bg-grid bg-page bg-prix">
@@ -83,6 +40,9 @@
             src="img/perfilguild2026.gif"
             alt="Guild Logo"
             class="guild-logo"
+            width="32"
+            height="32"
+            decoding="async"
           />
           <span class="fw-bold">Raиkک™</span>
         </a>
@@ -91,6 +51,9 @@
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navMain"
+          aria-controls="navMain"
+          aria-expanded="false"
+          aria-label="Abrir menú de navegación"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -102,7 +65,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="prix.html"
+              <a class="nav-link active" href="prix.html" aria-current="page"
                 ><i class="bi bi-trophy me-1"></i>Prix</a
               >
             </li>
@@ -122,12 +85,78 @@
     </nav>
 
     <main class="container py-4">
+      <section id="prix-2026-10-25" class="glassy p-3 p-md-4 rounded-4 mb-4" data-season-key="2026-10-25" data-event="2026-10-25">
+        <div class="d-flex align-items-center justify-content-between mb-3 gap-3">
+          <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 25/10/2026</h1>
+          <span class="badge bg-secondary bg-opacity-25">Pendiente de resultados</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table sheet align-middle" data-season-key="2026-10-25" aria-label="Tabla de resultados pendiente para el evento del 25 de octubre de 2026">
+            <thead>
+              <tr class="sheet-head">
+                <th>TEAM</th>
+                <th></th><th></th><th></th><th></th><th></th><th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="sheet-subhead">
+                <th>PISADOR</th>
+                <th></th><th></th><th></th><th></th><th></th><th></th>
+              </tr>
+              <tr>
+                <th>CUENTAS</th>
+                <td class="p-0"><div class="sheet-cuentas"></div></td>
+                <td class="p-0"><div class="sheet-cuentas"></div></td>
+                <td class="p-0"><div class="sheet-cuentas"></div></td>
+                <td class="p-0"><div class="sheet-cuentas"></div></td>
+                <td class="p-0"><div class="sheet-cuentas"></div></td>
+                <td class="p-0"><div class="sheet-cuentas"></div></td>
+              </tr>
+              <tr class="sheet-block">
+                <th rowspan="2">1RA HORA</th>
+                <td class="win"></td><td class="win"></td><td class="win"></td>
+                <td class="win"></td><td class="win"></td><td class="win"></td>
+              </tr>
+              <tr class="sheet-block">
+                <td class="lose"></td><td class="lose"></td><td class="lose"></td>
+                <td class="lose"></td><td class="lose"></td><td class="lose"></td>
+              </tr>
+              <tr class="sheet-block">
+                <th rowspan="2">2DA HORA</th>
+                <td class="win"></td><td class="win"></td><td class="win"></td>
+                <td class="win"></td><td class="win"></td><td class="win"></td>
+              </tr>
+              <tr class="sheet-block">
+                <td class="lose"></td><td class="lose"></td><td class="lose"></td>
+                <td class="lose"></td><td class="lose"></td><td class="lose"></td>
+              </tr>
+              <tr class="sheet-total">
+                <th>SubTotal</th>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+              </tr>
+              <tr class="sheet-total strong">
+                <th></th>
+                <th class="text-end" colspan="5">TOTAL</th>
+                <th class="total-num"></th>
+              </tr>
+              <tr class="sheet-total strong">
+                <th></th>
+                <th class="text-end" colspan="5">PUNTOS</th>
+                <th class="points-value"></th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-muted small mb-0 mt-2">Los participantes y resultados se incorporarán cuando se publiquen oficialmente.</p>
+      </section>
+
       <!-- ===================== -->
       <!-- 2026 II (NUEVO)       -->
       <!-- ===================== -->
       <div class="glassy p-3 p-md-4 rounded-4 mb-4" data-season-key="2026-ii">
         <div class="d-flex align-items-center justify-content-between mb-3">
-          <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2026 II</h1>
+          <h2 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2026 II</h2>
           <span class="badge text-bg-warning text-dark">𝟕𝟕𝟕</span>
         </div>
 
@@ -261,15 +290,7 @@
               <tr class="sheet-total strong">
                 <th></th>
                 <th class="text-end" colspan="3">PUNTOS</th>
-                <th
-                  style="
-                    font-size: 1.25rem;
-                    font-weight: 800;
-                    text-align: center;
-                    color: #fff;
-                    text-shadow: 0 1px 1px rgba(255, 0, 0, 0.25);
-                  "
-                >
+                <th class="points-value">
                   14
                 </th>
               </tr>
@@ -283,7 +304,7 @@
       <!-- ===================== -->
       <div class="glassy p-3 p-md-4 rounded-4 mb-4">
         <div class="d-flex align-items-center justify-content-between mb-3">
-          <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2026</h1>
+          <h2 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2026</h2>
           <span class="badge text-bg-warning text-dark">Raиkک™</span>
         </div>
 
@@ -425,15 +446,7 @@
               <tr class="sheet-total strong">
                 <th></th>
                 <th class="text-end" colspan="5">PUNTOS</th>
-                <th
-                  style="
-                    font-size: 1.25rem;
-                    font-weight: 800;
-                    text-align: center;
-                    color: #fff;
-                    text-shadow: 0 1px 1px rgba(255, 0, 0, 0.25);
-                  "
-                >
+                <th class="points-value">
                   27
                 </th>
               </tr>
@@ -448,7 +461,7 @@
       <div class="glassy p-3 p-md-4 rounded-4 mb-4">
         <!-- AÑADIDO: mb-4 -->
         <div class="d-flex align-items-center justify-content-between mb-3">
-          <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2025</h1>
+          <h2 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2025</h2>
           <span class="badge text-bg-warning text-dark">𝟕𝟕𝟕</span>
         </div>
 
@@ -590,15 +603,7 @@
               <tr class="sheet-total strong">
                 <th></th>
                 <th class="text-end" colspan="5">PUNTOS</th>
-                <th
-                  style="
-                    font-size: 1.25rem;
-                    font-weight: 800;
-                    text-align: center;
-                    color: #fff;
-                    text-shadow: 0 1px 1px rgba(255, 0, 0, 0.25);
-                  "
-                >
+                <th class="points-value">
                   23
                 </th>
               </tr>
@@ -612,7 +617,7 @@
       <!-- ===================== -->
       <div class="glassy p-3 p-md-4 rounded-4 mb-4">
         <div class="d-flex align-items-center justify-content-between mb-3">
-          <h1 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2024</h1>
+          <h2 class="h4 fw-extrabold m-0">GUILD PRIX — BUNGE — 2024</h2>
           <span class="badge text-bg-warning text-dark">𝗡𝗜𝗧𝗥𝗢</span>
         </div>
 
@@ -695,15 +700,7 @@
               <tr class="sheet-total strong">
                 <th></th>
                 <th class="text-end">PUNTOS</th>
-                <th
-                  style="
-                    font-size: 1.25rem;
-                    font-weight: 800;
-                    text-align: center;
-                    color: #fff;
-                    text-shadow: 0 1px 1px rgba(255, 0, 0, 0.25);
-                  "
-                >
+                <th class="points-value">
                   23
                 </th>
               </tr>
@@ -719,8 +716,9 @@
       </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/main.js"></script>
+    <script defer src="./js/main.js"></script>
+    <script defer src="./js/season-data.js"></script>
     <script defer src="./js/prix.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

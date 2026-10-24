@@ -3,13 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "dark" || savedTheme === "light") {
-        document.documentElement.setAttribute("data-bs-theme", savedTheme);
-      }
-      document.documentElement.classList.add("app-loading");
-    </script>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <title>GuildPrix Oficial | DragonBound Bunge</title>
     <meta
       name="description"
@@ -31,43 +25,6 @@
       rel="stylesheet"
     />
     <link href="styles.css" rel="stylesheet" />
-    <script type="speculationrules">
-      {
-        "prerender": [
-          {
-            "where": {
-              "and": [
-                {
-                  "or": [
-                    { "href_matches": "index.html" },
-                    { "href_matches": "./index.html" },
-                    { "href_matches": "/index.html" },
-                    { "href_matches": "live.html" },
-                    { "href_matches": "./live.html" },
-                    { "href_matches": "/live.html" },
-                    { "href_matches": "prix.html" },
-                    { "href_matches": "./prix.html" },
-                    { "href_matches": "/prix.html" },
-                    { "href_matches": "ranking.html" },
-                    { "href_matches": "./ranking.html" },
-                    { "href_matches": "/ranking.html" }
-                  ]
-                },
-                { "not": { "href_matches": "#*" } },
-                { "not": { "href_matches": "http://*" } },
-                { "not": { "href_matches": "https://*" } },
-                { "not": { "href_matches": "//*" } },
-                { "not": { "href_matches": "/logout" } },
-                { "not": { "selector_matches": "[rel~=nofollow]" } },
-                { "not": { "selector_matches": "[data-no-prerender]" } },
-                { "not": { "selector_matches": "a[download]" } }
-              ]
-            },
-            "eagerness": "moderate"
-          }
-        ]
-      }
-    </script>
   </head>
 
   <body class="bg-grid bg-page bg-index">
@@ -83,6 +40,9 @@
             src="img/perfilguild2026.gif"
             alt="Guild Logo"
             class="guild-logo"
+            width="32"
+            height="32"
+            decoding="async"
           />
           <span class="fw-bold">Raиkک™</span>
         </a>
@@ -91,13 +51,16 @@
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navMain"
+          aria-controls="navMain"
+          aria-expanded="false"
+          aria-label="Abrir menú de navegación"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navMain">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html"
+              <a class="nav-link active" href="index.html" aria-current="page"
                 ><i class="bi bi-house-door me-1"></i>Inicio</a
               >
             </li>
@@ -128,7 +91,7 @@
           <h1 class="display-4 fw-bold mb-3 neon-title">
             <span class="text-primary">DragonBound</span> Guild Prix
           </h1>
-          <p class="lead mb-4" style="color: rgba(255, 255, 255, 0.8)">
+          <p class="lead mb-4 text-muted">
             GuildPrix Oficial Modalidad Bunge 2026
           </p>
           <div class="d-flex flex-wrap justify-content-center gap-3">
@@ -155,6 +118,56 @@
       <!-- 2026 CURRENT SEASON   -->
       <!-- ===================== -->
       <div class="row g-4 mb-4">
+        <div class="col-12" data-event="2026-10-25">
+          <div class="glassy hero-card p-4 p-md-5 rounded-4 scale-hover">
+            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-4">
+              <div>
+                <span class="badge bg-info bg-opacity-25 mb-2 border border-info border-opacity-25">Próximo evento</span>
+                <h2 class="h3 fw-extrabold m-0">GUILD PRIX — 25/10/2026</h2>
+                <p class="mb-0 mt-1 text-muted">Evento especial · Resultados pendientes</p>
+              </div>
+              <span class="badge bg-secondary bg-opacity-25 mt-2 mt-md-0">Raиkک™</span>
+            </div>
+
+            <div class="row align-items-center">
+              <div class="col-md-6 mb-4 mb-md-0">
+                <div class="position-relative">
+                  <img
+                    src="img/portadadelguild2026.gif"
+                    alt="Portada del Guild 2026"
+                    width="1350"
+                    height="675"
+                    loading="lazy"
+                    decoding="async"
+                    class="img-fluid rounded-4 shadow-lg guild-cover"
+                  />
+                  <div class="position-absolute top-0 start-0 m-3">
+                    <span
+                      class="badge bg-dark bg-opacity-75 border border-light border-opacity-25"
+                    >
+                      <i class="bi bi-eye-fill me-1"></i>Live Soon
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="ps-md-4">
+                  <h3 class="h2 fw-bold mb-3">Nueva edición GuildPrix</h3>
+                  <p class="text-muted">La información oficial, los resultados y los enlaces se añadirán cuando estén disponibles.</p>
+                  <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="prix.html#prix-2026-10-25" class="btn btn-outline-primary btn-lg flex-grow-1">
+                      <i class="bi bi-table me-2" aria-hidden="true"></i>Ver resultados
+                    </a>
+                    <a href="live.html#live-2026-10-25" class="btn btn-outline-info btn-lg flex-grow-1">
+                      <i class="bi bi-play-circle me-2" aria-hidden="true"></i>Ver transmisiones
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="col-12">
           <div class="glassy hero-card p-4 p-md-5 rounded-4 scale-hover">
             <div
@@ -166,7 +179,7 @@
                   >Temporada Finalizada</span
                 >
                 <h2 class="h3 fw-extrabold m-0">GUILD PRIX — 2026 II</h2>
-                <p class="mb-0 mt-1" style="color: rgba(255, 255, 255, 0.7)">
+                <p class="mb-0 mt-1 text-muted">
                   <i class="bi bi-trophy me-1"></i>Top 10 alcanzado
                 </p>
               </div>
@@ -183,6 +196,11 @@
                   <img
                     src="img/portadadelguild.gif"
                     alt="Portada del Guild 2026 II"
+                    width="1350"
+                    height="675"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
                     class="img-fluid rounded-4 shadow-lg guild-cover"
                   />
                   <div class="position-absolute top-0 start-0 m-3">
@@ -210,7 +228,6 @@
                     <div class="flex-grow-1 ms-3">
                       <p
                         class="mb-1 fw-semibold"
-                        style="color: rgba(255, 255, 255, 0.9)"
                       >
                         Team confirmado
                       </p>
@@ -277,7 +294,7 @@
                   >Temporada Actual</span
                 >
                 <h2 class="h3 fw-extrabold m-0">GUILD PRIX — 2026</h2>
-                <p class="mb-0 mt-1" style="color: rgba(255, 255, 255, 0.7)">
+                <p class="mb-0 mt-1 text-muted">
                   <i class="bi bi-calendar-check me-1"></i>Finalizado
                 </p>
               </div>
@@ -294,6 +311,10 @@
                   <img
                     src="img/portadadelguild2026.gif"
                     alt="Portada del Guild 2026"
+                    width="1350"
+                    height="675"
+                    loading="lazy"
+                    decoding="async"
                     class="img-fluid rounded-4 shadow-lg guild-cover"
                   />
                   <div class="position-absolute top-0 start-0 m-3">
@@ -321,7 +342,6 @@
                     <div class="flex-grow-1 ms-3">
                       <p
                         class="mb-1 fw-semibold"
-                        style="color: rgba(255, 255, 255, 0.9)"
                       >
                         Organizador - Lider
                       </p>
@@ -379,7 +399,7 @@
                   >Temporada Pasada</span
                 >
                 <h2 class="h3 fw-extrabold m-0">GUILD PRIX — 2025</h2>
-                <p class="mb-0 mt-1" style="color: rgba(255, 255, 255, 0.7)">
+                <p class="mb-0 mt-1 text-muted">
                   <i class="bi bi-calendar-check me-1"></i>Finalizado
                 </p>
               </div>
@@ -396,6 +416,10 @@
                   <img
                     src="img/portadadelguild.gif"
                     alt="Portada del Guild 2025"
+                    width="1350"
+                    height="675"
+                    loading="lazy"
+                    decoding="async"
                     class="img-fluid rounded-4 shadow-lg guild-cover"
                   />
                   <div class="position-absolute top-0 start-0 m-3">
@@ -423,7 +447,6 @@
                     <div class="flex-grow-1 ms-3">
                       <p
                         class="mb-1 fw-semibold"
-                        style="color: rgba(255, 255, 255, 0.9)"
                       >
                         Organizador - Lider
                       </p>
@@ -491,7 +514,7 @@
                   >Temporada Histórica</span
                 >
                 <h2 class="h3 fw-extrabold m-0">GUILD PRIX — 2024</h2>
-                <p class="mb-0 mt-1" style="color: rgba(255, 255, 255, 0.7)">
+                <p class="mb-0 mt-1 text-muted">
                   <i class="bi bi-calendar-check me-1"></i>Finalizado
                 </p>
               </div>
@@ -508,6 +531,10 @@
                   <img
                     src="img/portadadeguild1.gif"
                     alt="Portada del Guild 2024"
+                    width="1350"
+                    height="675"
+                    loading="lazy"
+                    decoding="async"
                     class="img-fluid rounded-4 shadow-lg guild-cover"
                   />
                   <div class="position-absolute top-0 start-0 m-3">
@@ -542,7 +569,6 @@
                     <div class="flex-grow-1 ms-3">
                       <p
                         class="mb-1 fw-semibold"
-                        style="color: rgba(255, 255, 255, 0.9)"
                       >
                         Organizador - Lider
                       </p>
@@ -575,12 +601,11 @@
                   </div>
 
                   <div class="mt-4">
-                    <h5
-                      class="fw-bold mb-2"
-                      style="color: rgba(255, 255, 255, 0.9)"
+                    <h4
+                      class="h5 fw-bold mb-2"
                     >
                       <i class="bi bi-info-circle me-2"></i>Logros destacados
-                    </h5>
+                    </h4>
                     <div class="d-flex flex-wrap gap-2 mb-4">
                       <span
                         class="badge bg-dark bg-opacity-50 border border-secondary border-opacity-50"
@@ -625,17 +650,15 @@
       <div class="row mt-5">
         <div class="col-12">
           <div class="glassy p-4 rounded-4">
-            <h4
-              class="fw-bold mb-4 text-center"
-              style="color: rgba(255, 255, 255, 0.9)"
+            <h2 class="h4 fw-bold mb-4 text-center"
             >
               <i class="bi bi-speedometer2 me-2"></i>Rendimiento Global
-            </h4>
+            </h2>
             <div class="row text-center">
               <div class="col-md-3 mb-3 mb-md-0">
                 <div class="p-3">
                   <div class="h2 fw-bold text-primary">10</div>
-                  <div style="color: rgba(255, 255, 255, 0.7)">
+                  <div class="text-muted">
                     Jugadores Totales
                   </div>
                 </div>
@@ -643,13 +666,13 @@
               <div class="col-md-3 mb-3 mb-md-0">
                 <div class="p-3">
                    <div class="h2 fw-bold text-info">18</div>
-                  <div style="color: rgba(255, 255, 255, 0.7)">Total Teams</div>
+                  <div class="text-muted">Total Teams</div>
                 </div>
               </div>
               <div class="col-md-3 mb-3 mb-md-0">
                 <div class="p-3">
                    <div class="h2 fw-bold text-warning">73</div>
-                  <div style="color: rgba(255, 255, 255, 0.7)">
+                  <div class="text-muted">
                     Puntos Totales
                   </div>
                 </div>
@@ -657,7 +680,7 @@
               <div class="col-md-3">
                 <div class="p-3">
                    <div class="h2 fw-bold text-success">4</div>
-                  <div style="color: rgba(255, 255, 255, 0.7)">Temporadas</div>
+                  <div class="text-muted">Temporadas</div>
                 </div>
               </div>
             </div>
@@ -672,7 +695,7 @@
       </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/main.js"></script>
+    <script defer src="./js/main.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

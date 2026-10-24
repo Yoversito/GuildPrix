@@ -1,411 +1,286 @@
-// QUE FUE MEN?
-
 (function () {
   'use strict';
 
-  const DEBUG = false;
-  const log = {
-    info: (...args) => { if (DEBUG) console.info(...args); },
-    warn: (...args) => console.warn(...args),
-    debug: (...args) => { if (DEBUG) console.log(...args); }
-  };
-  
-  const yearsSections = Array.from(document.querySelectorAll(".ranking-year[data-year]"));
-  if (!yearsSections.length) {
-    log.warn("[ranking.js] No se encontraron secciones de ranking.");
+  const seasonData = window.GuildPrixSeasonData;
+  const yearsSections = Array.from(
+    document.querySelectorAll('.ranking-year[data-year]')
+  );
+
+  if (!seasonData || !yearsSections.length) {
+    console.error('[ranking.js] No se pudo inicializar el ranking.');
     return;
   }
 
-  const loadDataForYear = (year) => {
-    const key = `prixResults_${year}`;
-    const data = JSON.parse(localStorage.getItem(key) || "[]");
-    if (Array.isArray(data) && data.length) return { data, key };
-
-    const fallback = JSON.parse(localStorage.getItem("prixResults") || "[]");
-    if (Array.isArray(fallback) && fallback.length) return { data: fallback, key: "prixResults" };
-
-    return { data: [], key };
+  const formatDelta = (delta) => {
+    if (delta === null) return 'Sin referencia anterior';
+    if (delta > 0) return `Subió ${delta} ${delta === 1 ? 'puesto' : 'puestos'}`;
+    if (delta < 0) return `Bajó ${Math.abs(delta)} ${delta === -1 ? 'puesto' : 'puestos'}`;
+    return 'Se mantiene';
   };
 
-  const calculateRanking = (data) => {
-    if (!data.length) return [];
-    
-    const enriched = data.map(player => {
-      const totalMatches = (player.wins1 || 0) + (player.loses1 || 0) + 
-                          (player.wins2 || 0) + (player.loses2 || 0);
-      const winRate = totalMatches > 0 ? 
-        ((player.wins1 || 0) + (player.wins2 || 0)) / totalMatches * 100 : 0;
-      
-      return {
-        ...player,
-        totalMatches,
-        winRate: Math.round(winRate),
-        performance: player.winsSubtotal * 10 + winRate
-      };
-    });
+  function fillOneSection(section, year) {
+    section.querySelectorAll('.player-stats, .alert.alert-info').forEach((el) => el.remove());
+    const list = section.querySelector('.rank-list');
+    if (list) {
+      list.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((element) => {
+        window.bootstrap?.Tooltip?.getInstance(element)?.dispose();
+      });
+      list.replaceChildren();
+    }
 
-    return enriched.sort((a, b) => {
-      if (b.winsSubtotal !== a.winsSubtotal) return b.winsSubtotal - a.winsSubtotal;
-      if (b.performance !== a.performance) return b.performance - a.performance;
-      if (b.winRate !== a.winRate) return b.winRate - a.winRate;
-      return b.totalMatches - a.totalMatches;
-    });
-  };
-
-  const normalizeName = (name) => String(name || '').trim().toLowerCase();
-
-  const getPreviousRanking = (year) => {
-    const prevYear = String(Number(year) - 1);
-    if (!/^\d{4}$/.test(prevYear)) return [];
-    const { data } = loadDataForYear(prevYear);
-    return calculateRanking(data);
-  };
-
-  const applyDelta = (currentRanking, previousRanking) => {
-    if (!currentRanking.length) return currentRanking;
-    const previousPositions = new Map(
-      previousRanking.map((player, idx) => [normalizeName(player.name), idx + 1])
-    );
-
-    return currentRanking.map((player, idx) => {
-      const currentPosition = idx + 1;
-      const prevPosition = previousPositions.get(normalizeName(player.name));
-      const delta = Number.isFinite(prevPosition) ? (prevPosition - currentPosition) : 0;
-      return { ...player, delta };
-    });
-  };
-
-  const resetSectionUI = (section) => {
-    section.querySelectorAll('.player-stats').forEach((el) => el.remove());
-    section.querySelectorAll('.alert.alert-info').forEach((el) => el.remove());
-  };
-
-  const fillOneSection = (section, year) => {
-    resetSectionUI(section);
-    const { data, key } = loadDataForYear(year);
-    const sortedRaw = calculateRanking(data);
-    const previousRanking = getPreviousRanking(year);
-    const sorted = applyDelta(sortedRaw, previousRanking);
-    
-    if (!sorted.length) {
-      log.warn(`[ranking.js] (${year}) Sin datos disponibles.`);
-      showNoDataMessage(section);
+    const ranking = seasonData.getRanking(year);
+    if (!ranking.length) {
+      showNoDataMessage(section, year);
       return;
     }
 
-    const top = sorted.slice(0, Math.min(sorted.length, 6));
-
     const podiumCards = section.querySelectorAll('.podium-card');
-    if (podiumCards.length >= 3) {
-      const podiumData = [
-        { card: podiumCards[1], player: top[0], medal: 'gold', position: 1 },   
-        { card: podiumCards[0], player: top[1], medal: 'silver', position: 2 }, 
-        { card: podiumCards[2], player: top[2], medal: 'bronze', position: 3 }  
-      ];
+    const podiumOrder = [1, 0, 2];
 
-      podiumData.forEach(({ card, player, medal, position }, index) => {
-        if (player) {
-          const nameEl = card.querySelector('.name');
-          const posEl = card.querySelector('.pos');
-          const medalEl = card.querySelector('.medal');
-          
-          if (nameEl) {
-            nameEl.textContent = player.name;
-            nameEl.setAttribute('data-bs-toggle', 'tooltip');
-            nameEl.setAttribute('title', `Win Rate: ${player.winRate}% | Partidas: ${player.totalMatches}`);
-          }
-          
-          if (posEl) posEl.textContent = position;
-          if (medalEl) {
-            const tooltipText = position === 1 ? 'Líder del ranking' :
-                              position === 2 ? 'Segundo lugar' : 'Tercer lugar';
-            medalEl.setAttribute('data-bs-original-title', tooltipText);
-          
-            setTimeout(() => {
-              medalEl.style.animation = `medalAppear 0.5s ease ${index * 0.2}s both`;
-            }, 100);
-          }
-          
-          addPlayerStats(card, player);
+    podiumOrder.forEach((cardIndex, positionIndex) => {
+      const card = podiumCards[cardIndex];
+      if (!card) return;
+
+      const player = ranking[positionIndex];
+      const name = card.querySelector('.name');
+      const position = card.querySelector('.pos');
+      const medal = card.querySelector('.medal');
+
+      if (!player) {
+        if (name && !name.textContent.trim()) name.textContent = 'Sin registro';
+        if (name?.textContent.trim() === 'Sin registro') {
+          addPlayerStats(card, { winRate: 0, totalMatches: 0 });
         }
-      });
-    }
+        return;
+      }
 
-    const list = section.querySelector("ul.rank-list");
+      if (name) {
+        name.textContent = player.name;
+        name.title = `Victorias: ${player.winRate}% | Participaciones: ${player.totalMatches}`;
+        name.setAttribute('data-bs-toggle', 'tooltip');
+      }
+      if (position) position.textContent = String(positionIndex + 1);
+      if (medal) {
+        medal.title = formatDelta(player.delta);
+        medal.setAttribute('data-bs-toggle', 'tooltip');
+        medal.style.animation = `medalAppear 0.5s ease ${positionIndex * 0.2}s both`;
+      }
+
+      addPlayerStats(card, player);
+    });
+
     if (list) {
-      list.innerHTML = "";
-      const maxPts = Math.max(1, top[0]?.winsSubtotal || 0);
-
+      const top = ranking.slice(0, 6);
+      const maxPoints = Math.max(1, top[0]?.winsSubtotal || 0);
       top.slice(3).forEach((player, index) => {
-        const rankNum = index + 4;
-        const pct = Math.max(0.2, Math.min(1, (player?.winsSubtotal || 0) / maxPts));
-        
-        const li = createRankListItem(player, rankNum, pct);
-        list.appendChild(li);
-        
-        setTimeout(() => {
-          li.style.animation = `slideInRight 0.5s ease ${index * 0.1}s both`;
-        }, 300);
+        const place = index + 4;
+        const percentage = Math.max(
+          0.2,
+          Math.min(1, (player.winsSubtotal || 0) / maxPoints)
+        );
+        const item = createRankListItem(player, place, percentage);
+        item.style.animation = `slideInRight 0.5s ease ${index * 0.1}s both`;
+        list.appendChild(item);
       });
     }
+  }
 
-    initRankingTooltips();
-    
-    log.info(`[ranking.js] (${year}) Ranking generado para ${top.length} jugadores. Fuente: ${key}`);
-  };
+  function createRankListItem(player, place, percentage) {
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'rank-row';
+    button.style.setProperty('--pct', String(percentage));
+    button.setAttribute(
+      'aria-label',
+      `${place}º, ${player.name}, ${player.winsSubtotal} puntos netos. Ver estadísticas`
+    );
 
-  const createRankListItem = (player, rankNum, pct) => {
-    const li = document.createElement("li");
-    li.className = "rank-row";
-    li.style.setProperty("--pct", String(pct));
-    
-    const tag = getPerformanceTag(rankNum, player.winRate);
-    const delta = getDeltaIcon(player.delta);
-    
-    li.innerHTML = `
-      <span class="rank-badge">${rankNum}</span>
-      <div class="rank-info">
-        <span class="rank-name">${player.name}</span>
-        <div class="rank-stats">
-          <small class="text-muted">WR: ${player.winRate}% | Partidas: ${player.totalMatches}</small>
-        </div>
-      </div>
-      <span class="rank-right">
-        <span class="rank-points" data-bs-toggle="tooltip" title="Puntos totales">${player.winsSubtotal}</span>
-        ${delta}
-        <span class="rank-tag">${tag}</span>
-      </span>
-    `;
-    
-    li.addEventListener('click', () => showPlayerDetails(player));
-    
-    return li;
-  };
+    const badge = document.createElement('span');
+    badge.className = 'rank-badge';
+    badge.textContent = String(place);
 
-  const getPerformanceTag = (position, winRate) => {
-    if (position === 4) return "🔥 Promesa";
-    if (position === 5) return "⚡ En crecimiento";
-    if (position === 6) return "🎯 Mejorando";
-    return "📊 Competitivo";
-  };
+    const info = document.createElement('span');
+    info.className = 'rank-info';
+    const name = document.createElement('span');
+    name.className = 'rank-name';
+    name.textContent = player.name;
+    const stats = document.createElement('span');
+    stats.className = 'rank-stats';
+    stats.textContent = `WR: ${player.winRate}% | Participaciones: ${player.totalMatches}`;
+    info.append(name, stats);
 
-  const getDeltaIcon = (delta) => {
-    if (delta > 0) return `<span class="rank-delta up" data-bs-toggle="tooltip" title="Subió ${delta} posiciones"><i class="bi bi-arrow-up-right"></i>${delta}</span>`;
-    if (delta < 0) return `<span class="rank-delta down" data-bs-toggle="tooltip" title="Bajó ${Math.abs(delta)} posiciones"><i class="bi bi-arrow-down-right"></i>${Math.abs(delta)}</span>`;
-    return `<span class="rank-delta same" data-bs-toggle="tooltip" title="Sin cambios"><i class="bi bi-dash-lg"></i></span>`;
-  };
+    const right = document.createElement('span');
+    right.className = 'rank-right';
+    const points = document.createElement('span');
+    points.className = 'rank-points';
+    points.textContent = String(player.winsSubtotal);
+    points.title = 'Puntos netos';
 
-  const addPlayerStats = (card, player) => {
-    const statsDiv = document.createElement('div');
-    statsDiv.className = 'player-stats mt-2';
-    statsDiv.innerHTML = `
-      <div class="d-flex justify-content-center gap-3">
-        <small class="stat-badge">${player.winRate}% WR</small>
-        <small class="stat-badge">${player.totalMatches} PJ</small>
-      </div>
-    `;
-    
-    const cardBody = card.querySelector('.podium-body') || card;
-    const existingStats = cardBody.querySelector('.player-stats');
-    if (existingStats) existingStats.remove();
-    cardBody.appendChild(statsDiv);
-  };
+    const delta = createDeltaElement(player.delta);
+    const tag = document.createElement('span');
+    tag.className = 'rank-tag';
+    tag.textContent = getPerformanceTag(place);
+    right.append(points, delta, tag);
 
-  const showNoDataMessage = (section) => {
-    const message = document.createElement('div');
+    button.append(badge, info, right);
+    button.addEventListener('click', () => showPlayerDetails(player));
+    item.appendChild(button);
+    return item;
+  }
+
+  function createDeltaElement(delta) {
+    const element = document.createElement('span');
+    element.className = 'rank-delta';
+    element.title = formatDelta(delta);
+
+    const icon = document.createElement('i');
+    icon.setAttribute('aria-hidden', 'true');
+    if (delta === null || delta === 0) {
+      element.classList.add('same');
+      icon.className = 'bi bi-dash-lg';
+    } else if (delta > 0) {
+      element.classList.add('up');
+      icon.className = 'bi bi-arrow-up-right';
+      element.append(icon, document.createTextNode(String(delta)));
+      return element;
+    } else {
+      element.classList.add('down');
+      icon.className = 'bi bi-arrow-down-right';
+      element.append(icon, document.createTextNode(String(Math.abs(delta))));
+      return element;
+    }
+
+    element.appendChild(icon);
+    if (delta === null) element.appendChild(document.createTextNode('—'));
+    return element;
+  }
+
+  function getPerformanceTag(place) {
+    if (place === 4) return '🔥 Promesa';
+    if (place === 5) return '⚡ En crecimiento';
+    if (place === 6) return '🎯 Mejorando';
+    return '📊 Competitivo';
+  }
+
+  function addPlayerStats(card, player) {
+    const stats = document.createElement('div');
+    stats.className = 'player-stats mt-2';
+
+    const rate = document.createElement('small');
+    rate.className = 'stat-badge';
+    rate.textContent = `${player.winRate}% WR`;
+    const matches = document.createElement('small');
+    matches.className = 'stat-badge';
+    matches.textContent = `${player.totalMatches} PJ`;
+    stats.append(rate, matches);
+
+    const body = card.querySelector('.podium-body') || card;
+    body.appendChild(stats);
+  }
+
+  function showNoDataMessage(section, year) {
+    const message = document.createElement('p');
     message.className = 'alert alert-info text-center';
-    message.innerHTML = `
-      <i class="bi bi-info-circle me-2"></i>
-      No hay datos disponibles para este ranking. 
-      <a href="prix.html" class="alert-link">Revisa la página de Prix</a> para generar estadísticas.
-    `;
-    
-    const container = section.querySelector('.glassy') || section;
+    message.setAttribute('role', 'status');
+    message.textContent = year === '2026-10-25'
+      ? 'Ranking pendiente de resultados oficiales del evento.'
+      : 'No hay datos disponibles para esta temporada.';
+    const container = section.querySelector('.rank-list')?.parentElement || section;
     container.appendChild(message);
-  };
+  }
 
-  const initRankingTooltips = () => {
-    if (!window.bootstrap || !window.bootstrap.Tooltip) return;
+  function showPlayerDetails(player) {
+    let dialog = document.getElementById('player-detail-dialog');
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.id = 'player-detail-dialog';
+      dialog.className = 'player-detail-dialog';
+      dialog.setAttribute('aria-labelledby', 'player-detail-title');
 
-    const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    tooltips.forEach(el => {
-      const existing = bootstrap.Tooltip.getInstance(el);
-      if (existing) existing.dispose();
-      new bootstrap.Tooltip(el, {
-        boundary: document.body,
-        trigger: 'hover focus'
+      const header = document.createElement('div');
+      header.className = 'player-detail-header';
+      const title = document.createElement('h2');
+      title.id = 'player-detail-title';
+      title.className = 'h4 m-0';
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'btn btn-sm btn-outline-secondary';
+      close.setAttribute('aria-label', 'Cerrar estadísticas');
+      close.textContent = 'Cerrar';
+      close.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (event) => {
+        const bounds = dialog.getBoundingClientRect();
+        if (
+          event.clientX < bounds.left ||
+          event.clientX > bounds.right ||
+          event.clientY < bounds.top ||
+          event.clientY > bounds.bottom
+        ) dialog.close();
       });
-    });
-  };
+      header.append(title, close);
 
-  const showPlayerDetails = (player) => {
-    log.debug('Detalles del jugador:', player);
-    
-    const detail = `
-      <strong>${player.name}</strong><br>
-      <small>Team: ${player.team || 'N/A'}</small><br><br>
-      <strong>Estadísticas:</strong><br>
-      • Puntos: ${player.winsSubtotal}<br>
-      • Win Rate: ${player.winRate}%<br>
-      • Partidas jugadas: ${player.totalMatches}<br>
-      • Victorias 1ra hora: ${player.wins1 || 0}<br>
-      • Derrotas 1ra hora: ${player.loses1 || 0}<br>
-      • Victorias 2da hora: ${player.wins2 || 0}<br>
-      • Derrotas 2da hora: ${player.loses2 || 0}
-    `;
-    
-    const notification = document.createElement('div');
-    notification.className = 'player-detail-notification';
-    notification.innerHTML = detail;
-    notification.style.cssText = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(15, 23, 42, 0.98);
-      color: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      border: 2px solid #7c3aed;
-      z-index: 9999;
-      max-width: 400px;
-      width: 90%;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      animation: modalAppear 0.3s ease;
-    `;
-    
-    const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    overlay.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 9998;
-      animation: fadeIn 0.3s ease;
-    `;
-    
-    overlay.addEventListener('click', () => {
-      notification.style.animation = 'modalDisappear 0.3s ease';
-      overlay.style.animation = 'fadeOut 0.3s ease';
-      setTimeout(() => {
-        notification.remove();
-        overlay.remove();
-      }, 300);
-    });
-    
-    document.body.appendChild(overlay);
-    document.body.appendChild(notification);
-    
-    addModalStyles();
-  };
-
-  const addModalStyles = () => {
-    if (!document.querySelector('#modal-styles')) {
-      const style = document.createElement('style');
-      style.id = 'modal-styles';
-      style.textContent = `
-        @keyframes modalAppear {
-          from { opacity: 0; transform: translate(-50%, -60%); }
-          to { opacity: 1; transform: translate(-50%, -50%); }
-        }
-        
-        @keyframes modalDisappear {
-          from { opacity: 1; transform: translate(-50%, -50%); }
-          to { opacity: 0; transform: translate(-50%, -60%); }
-        }
-        
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-        
-        @keyframes medalAppear {
-          from { transform: scale(0) rotate(-180deg); opacity: 0; }
-          to { transform: scale(1) rotate(0); opacity: 1; }
-        }
-        
-        @keyframes slideInRight {
-          from { transform: translateX(50px); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-        
-        .stat-badge {
-          background: rgba(255, 255, 255, 0.1);
-          padding: 0.2rem 0.5rem;
-          border-radius: 0.5rem;
-          font-size: 0.8rem;
-        }
-        
-        .player-stats {
-          animation: fadeIn 0.5s ease 0.5s both;
-        }
-        
-        .rank-info {
-          flex-grow: 1;
-        }
-        
-        .rank-stats {
-          font-size: 0.85rem;
-          opacity: 0.8;
-        }
-        
-        .rank-delta {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.25rem;
-          padding: 0.25rem 0.5rem;
-          border-radius: 0.5rem;
-          font-weight: 700;
-          font-size: 0.85rem;
-        }
-        
-        .rank-delta.up {
-          background: rgba(74, 222, 128, 0.2);
-          color: #4ade80;
-          border: 1px solid rgba(74, 222, 128, 0.3);
-        }
-        
-        .rank-delta.down {
-          background: rgba(248, 113, 113, 0.2);
-          color: #f87171;
-          border: 1px solid rgba(248, 113, 113, 0.3);
-        }
-        
-        .rank-delta.same {
-          background: rgba(168, 176, 195, 0.2);
-          color: #a8b0c3;
-          border: 1px solid rgba(168, 176, 195, 0.3);
-        }
-      `;
-      document.head.appendChild(style);
+      const content = document.createElement('dl');
+      content.className = 'player-detail-content';
+      dialog.append(header, content);
+      document.body.appendChild(dialog);
     }
-  };
+
+    const title = dialog.querySelector('#player-detail-title');
+    const content = dialog.querySelector('.player-detail-content');
+    title.textContent = player.name;
+    content.replaceChildren();
+
+    const details = [
+      ['Equipo', player.team || 'N/D'],
+      ['Puntos netos', player.winsSubtotal],
+      ['Porcentaje de victorias', `${player.winRate}%`],
+      ['Participaciones', player.totalMatches],
+      ['Victorias 1.ª hora', player.wins1],
+      ['Derrotas 1.ª hora', player.loses1],
+      ['Victorias 2.ª hora', player.wins2],
+      ['Derrotas 2.ª hora', player.loses2]
+    ];
+
+    details.forEach(([label, value]) => {
+      const term = document.createElement('dt');
+      term.textContent = label;
+      const description = document.createElement('dd');
+      description.textContent = String(value ?? 0);
+      content.append(term, description);
+    });
+
+    if (!dialog.open) {
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+      else dialog.setAttribute('open', '');
+    }
+  }
 
   yearsSections.forEach((section) => {
-    const year = section.getAttribute("data-year");
-    fillOneSection(section, year);
+    fillOneSection(section, section.getAttribute('data-year'));
   });
+  initRankingTooltips();
+
+  function initRankingTooltips() {
+    if (!window.bootstrap?.Tooltip) return;
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((element) => {
+      if (!window.bootstrap.Tooltip.getInstance(element)) {
+        new window.bootstrap.Tooltip(element, { trigger: 'hover focus' });
+      }
+    });
+  }
 
   window.dragonbound = window.dragonbound || {};
   window.dragonbound.ranking = {
-    refresh: function() {
+    refresh() {
       yearsSections.forEach((section) => {
-        const year = section.getAttribute("data-year");
-        fillOneSection(section, year);
+        fillOneSection(section, section.getAttribute('data-year'));
       });
+      initRankingTooltips();
       return true;
     },
-    getRanking: function(year) {
-      const { data } = loadDataForYear(year);
-      return calculateRanking(data);
+    getRanking(year) {
+      return seasonData.getRanking(year);
     }
   };
 })();
