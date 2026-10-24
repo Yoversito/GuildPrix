@@ -63,7 +63,9 @@ test('los estilos conservan la paleta oscura original y el contraste de navegaci
     const source = fs.readFileSync(path.join(root, stylesheet), 'utf8');
     assert.match(source, /--guild-surface:\s*rgba\(15, 23, 42, 0\.85\)/);
     assert.match(source, /--guild-muted:\s*rgba\(255, 255, 255, 0\.7\)/);
-    assert.match(source, /\.navbar-brand,[\s\S]*?\.navbar \.nav-link\s*\{\s*color: rgba\(255, 255, 255, 0\.88\)/);
+    assert.match(source, /\.navbar \.navbar-brand\s*\{[\s\S]*?color: rgba\(255, 255, 255, 0\.9\) !important/);
+    assert.match(source, /\.navbar \.navbar-brand:visited,[\s\S]*?\.navbar \.navbar-brand:active\s*\{\s*color: #fff !important/);
+    assert.match(source, /\.navbar \.nav-link\s*\{\s*color: rgba\(255, 255, 255, 0\.88\)/);
     assert.doesNotMatch(source, /#f3f5fb|background-color:\s*#fff/);
   }
 });
@@ -79,5 +81,20 @@ test('el evento del 25/10/2026 tiene un apartado independiente en las cuatro pá
   for (const [page, marker] of Object.entries(markers)) {
     const html = fs.readFileSync(path.join(root, page), 'utf8');
     assert.ok(html.includes(marker), `${page}: falta el apartado del evento`);
+  }
+});
+
+test('los separadores solo se muestran en escritorio y la marca conserva contraste al interactuar', () => {
+  for (const page of pages) {
+    const html = fs.readFileSync(path.join(root, page), 'utf8');
+    assert.equal((html.match(/class="nav-separator"/g) || []).length, 3, `${page}: deben existir tres separadores`);
+    assert.equal((html.match(/<li class="nav-separator" aria-hidden="true">\|<\/li>/g) || []).length, 3, `${page}: separadores decorativos sin enlaces`);
+  }
+
+  for (const stylesheet of ['styles.css', 'styles.scss']) {
+    const source = fs.readFileSync(path.join(root, stylesheet), 'utf8');
+    assert.match(source, /@media \(min-width: 992px\)[\s\S]*?\.navbar \.navbar-nav \.nav-separator/);
+    assert.match(source, /\.navbar \{\s*background-color: rgba\(15, 23, 42, 0\.7\)/);
+    assert.match(source, /\.navbar \.navbar-brand:visited,[\s\S]*?\.navbar \.navbar-brand:active\s*\{\s*color: #fff !important/);
   }
 });

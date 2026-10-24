@@ -1347,11 +1347,25 @@ body {
 }
 
 .navbar {
-  background-color: rgba(15, 23, 42, 0.85);
+  background-color: rgba(15, 23, 42, 0.7);
   border-color: var(--guild-border) !important;
 }
 
-.navbar-brand,
+.navbar .navbar-brand {
+  color: rgba(255, 255, 255, 0.9) !important;
+  letter-spacing: 0.025em;
+  text-shadow: 0 0 12px rgba(124, 58, 237, 0.25);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.navbar .navbar-brand:visited,
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus,
+.navbar .navbar-brand:active {
+  color: #fff !important;
+  text-shadow: 0 0 14px rgba(124, 58, 237, 0.4);
+}
+
 .navbar .nav-link {
   color: rgba(255, 255, 255, 0.88);
 }
@@ -1370,6 +1384,23 @@ body {
 
 .navbar .navbar-collapse {
   border-color: rgba(255, 255, 255, 0.14);
+}
+
+.nav-separator {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .navbar .navbar-nav .nav-separator {
+    display: flex;
+    align-items: center;
+    margin: 0 0.1rem;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    user-select: none;
+  }
 }
 
 .navbar.scroll-up {
